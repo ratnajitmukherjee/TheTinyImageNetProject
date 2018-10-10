@@ -31,6 +31,10 @@
  " POSSIBILITY OF SUCH DAMAGE.
  " -----------------------------------------------------------------------------
  "
+<<<<<<< HEAD
+=======
+ " Integrated into the TinyImagenet project by:
+>>>>>>> 9115f0b4f6dde5a1e20f701da4ceccb6205b0a53
  " Author: Ratnajit Mukherjee, ratnajitmukherjee@gmail.com
  " Date: October 2018
 """
@@ -49,8 +53,12 @@ class BuildNetworkModel:
     # Define the convolution layer
     def conv2d_bn(self, x, filter_size, kernel_size, padding_type, activation_type):
         weight=5e-4
+<<<<<<< HEAD
         x = Conv2D(filters=filter_size, kernel_size=kernel_size, kernel_regularizer=l2(weight), padding=padding_type,
                    activation='linear')(x)
+=======
+        x = Conv2D(filters=filter_size, kernel_size=kernel_size, kernel_regularizer=l2(weight), padding=padding_type, activation='linear')(x)
+>>>>>>> 9115f0b4f6dde5a1e20f701da4ceccb6205b0a53
         x = Activation(activation_type)(x)
         x = BatchNormalization(axis=-1)(x)        
         return x

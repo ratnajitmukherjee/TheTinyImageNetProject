@@ -31,19 +31,29 @@
  " POSSIBILITY OF SUCH DAMAGE.
  " -----------------------------------------------------------------------------
  "
+<<<<<<< HEAD
+=======
+ " Integrated into the TinyImagenet project by:
+>>>>>>> 9115f0b4f6dde5a1e20f701da4ceccb6205b0a53
  " Author: Ratnajit Mukherjee, ratnajitmukherjee@gmail.com
  " Date: October 2018
 """
 import os
+<<<<<<< HEAD
 import imageio
 import numpy as np
 from hdf5datasetwriter import HDF5DatasetWriter
+=======
+import numpy as np
+from keras.utils import np_utils
+>>>>>>> 9115f0b4f6dde5a1e20f701da4ceccb6205b0a53
 from sklearn.preprocessing import LabelEncoder
 from sklearn.model_selection import train_test_split
 
 
 class BuildTinyImageNetDataset:
     def __init__(self, root_path):
+<<<<<<< HEAD
         self.global_train_path = os.path.join(root_path, 'train')
         self.global_val_path = os.path.join(root_path, 'val/images')
         self.global_output_path = os.path.join(root_path, 'hdf5Files')
@@ -68,12 +78,33 @@ class BuildTinyImageNetDataset:
         # extract all the training paths from the subdirs
         train_paths = [os.path.join(root, filename) for root, subdirs, files in os.walk(self.global_train_path)
                        for filename in files if filename.endswith(".JPEG")]
+=======
+        global_train_path = os.path.join(root_path, 'train')
+        global_val_path = os.path.join(root_path, 'val/images')
+        global_output_path = os.path.join(root_path, 'hdf5Files')        
+        val_mappings = os.path.join(root_path, 'val/val_annotations.txt')
+
+        # The wordnet IDs are used to search the words in the words txt file and thus join
+        # and create the data labels
+        global_wordnet_id = os.path.join(root_path, 'wnids.txt')
+        global_words = os.path.join(root_path, 'words.txt')        
+        print("\n Starting to build TinyImageProject dataset for image classification...")
+
+        # uncomment the following lines for testing the paths correctly        
+        print("\n Training Path: {0} \n Validation Path: {1} \n Output Path: {2}".format(global_train_path, global_val_path,global_output_path))
+        return global_train_path, global_val_path, global_output_path
+
+    def buildDataSet(self, root_path, train_path, val_path, output_path):
+        # extract all the training paths from the subdirs
+        train_paths = [os.path.join(root, filename) for root, subdirs, files in os.walk(training_image_path) for filename in files if filename.endswith(".JPEG")]
+>>>>>>> 9115f0b4f6dde5a1e20f701da4ceccb6205b0a53
         train_labels = [filepath.split(os.path.sep)[-3] for filepath in train_paths]
 
         # convert training labels to unique integer values
         le = LabelEncoder()
         train_labels = le.fit_transform(train_labels)
 
+<<<<<<< HEAD
         # In TinyImageNet project, we don't have access to test data. Therefore, we split train data -> 10% for test
         (train_paths, test_paths, train_labels, test_labels) = train_test_split(train_paths, train_labels,
                                                                                 test_size=0.1, stratify=train_labels,
@@ -114,3 +145,21 @@ class BuildTinyImageNetDataset:
 
 if __name__ == '__main__':
     print('STUD: BUILD TINY IMAGENET DATASET INTO HDF5 FILES. WORK IN PROGRESS...')
+=======
+        """
+        Since the TinyImageNet dataset does not have any test data set, we split the training dataset into the same number of images as the validation set
+        and then use the test set to test our models. That amounts to 0.1 or 10% of the training dataset
+        NOTE: Please read the README.md for explanation details
+        """
+        (train_paths, test_paths, train_labels, test_labels) = train_test_split(train_paths, train_labels, test_size=0.1, stratify=train_labels, random_state=20)
+                
+        
+
+
+        
+
+
+if __name__== '__main__':
+    root_path = input("\n Please enter the root path: ")
+    buildTinyImageNet = BuildTinyImageNetDataset(root_path)
+>>>>>>> 9115f0b4f6dde5a1e20f701da4ceccb6205b0a53
