@@ -34,16 +34,19 @@
  " Author: Ratnajit Mukherjee, ratnajitmukherjee@gmail.com
  " Date: October 2018
 """
+from NetworkModel import BuildNetworkModel
+from BuildTinyImageNetDataset import BuildTinyImageNetDataset
 from keras.callbacks import EarlyStopping, LearningRateScheduler, ModelCheckpoint
+from keras.preprocessing.image import ImageDataGenerator
 from keras.models import load_model
 import keras.backend as K
 import matplotlib.pyplot as plt
-from NetworkModel import BuildNetworkModel
 
 
 class TrainTinyImageNet:
     def __init__(self, root_path):
         print("\n Training the TinyImageNet-200 dataset")
+        self.root_path = root_path
 
     def model_plot_history(self, emotion_train):
         plt.plot(emotion_train.history['acc'], 'r+', linestyle='-', label='Training accuracy')
@@ -59,6 +62,16 @@ class TrainTinyImageNet:
         plt.show()
         return
 
+    def train_tinyimagenet(self, input_size, num_classes):
+        buildDataSet = BuildTinyImageNetDataset(self.root_path)
+        (train_HDF5, val_HDF5, test_HDF5) = buildDataSet.configDataSet()
+
+        train_data_aug = ImageDataGenerator(rotation_range=25, zoom_range=0.5, width_shift_range=0.15,
+                                            height_shift_range=0.15, shear_range=0.15, horizontal_flip=True,
+                                            fill_mode='nearest')
+
+
 
 if __name__ == '__main__':
-    print('STUD: TRAINING CLASS.. TO BE COMPLETED LATER')
+    root_path = input('Please enter the root path: ')
+    trainTinyImageNet = TrainTinyImageNet(root_path=root_path)

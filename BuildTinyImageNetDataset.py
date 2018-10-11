@@ -35,32 +35,31 @@
  " Date: October 2018
 """
 import os
-import imageio
-import numpy as np
+import cv2
 from hdf5datasetwriter import HDF5DatasetWriter
 import numpy as np
-from keras.utils import np_utils
 from sklearn.preprocessing import LabelEncoder
 from sklearn.model_selection import train_test_split
+from tqdm import tqdm
 
 
 class BuildTinyImageNetDataset:
     def __init__(self, root_path):
         self.global_train_path = os.path.join(root_path, 'train')
-        self.global_val_path = os.path.join(root_path, 'val/images')
+        self.global_val_path = os.path.join(root_path, 'val', 'images')
         self.global_output_path = os.path.join(root_path, 'hdf5Files')
-        self.val_mappings = os.path.join(root_path, 'val/val_annotations.txt')
+        self.val_mappings = os.path.join(root_path, 'val', 'val_annotations.txt')
 
         # The wordnet IDs are used to search the words in the words txt file and thus join
         # and create the data labels
         self.global_wordnet_id = os.path.join(root_path, 'wnids.txt')
         self.global_words = os.path.join(root_path, 'words.txt')
         print("\n Starting to build TinyImageProject dataset for image classification...")
-        return
 
     def configDataSet(self):
         if not os.path.exists(self.global_output_path):
             print('\n HDF5 output directory does not exist. Creating a new directory')
+            os.makedirs(self.global_output_path)
         train_HDF5 = os.path.join(self.global_output_path, 'train.hdf5')
         val_HDF5 = os.path.join(self.global_output_path, 'val.hdf5')
         test_HDF5 = os.path.join(self.global_output_path, 'test.hdf5')
@@ -83,10 +82,10 @@ class BuildTinyImageNetDataset:
                                                                                 random_state=20)
 
         # Next we handle the validation paths creating the validation labels
-        val_paths = open(self.val_mappings).read().strip().split('\n')
-        val_paths = [line.split('\t')[:2] for line in val_paths]
-        val_paths = [os.path.join(self.global_val_path, line[0]) for line in val_paths]
-        val_labels = le.fit_transform([line[1] for line in val_paths])
+        val_contents = open(self.val_mappings).read().strip().split('\n')
+        val_contents = [line.split('\t')[:2] for line in val_contents]
+        val_paths = [os.path.join(self.global_val_path, line[0]) for line in val_contents]
+        val_labels = le.fit_transform([line[1] for line in val_contents])
 
         # Now we have train, val and test paths and labels. Next building the datasets
         (train_HDF5, val_HDF5, test_HDF5) = self.configDataSet()
@@ -100,12 +99,12 @@ class BuildTinyImageNetDataset:
         for (usage, paths, labels, output_path) in train_val_test_dataset:
             print('\n Building dataset {0}...'.format(output_path))
             dswriter = HDF5DatasetWriter((len(paths), 64, 64, 3), outputPath=output_path)
-            for (path, label) in zip(paths, labels):
-                img = imageio.imread(path)
+            for (i, path, label) in zip(tqdm(range(int(len(paths)))), paths, labels):
+                img = cv2.imread(path)  # the image is read in BGR and not RGB order
                 if usage == 'train':
-                    RList.append(np.mean(np.ravel(img[:, :, 0])))
+                    RList.append(np.mean(np.ravel(img[:, :, 2])))
                     GList.append(np.mean(np.ravel(img[:, :, 1])))
-                    BList.append(np.mean(np.ravel(img[:, :, 2])))
+                    BList.append(np.mean(np.ravel(img[:, :, 0])))
                 dswriter.add([img], [label])
             dswriter.close()
             print('\n Finished building dataset {0}'.format(output_path))
@@ -115,6 +114,7 @@ class BuildTinyImageNetDataset:
         return rgb_mean
 
 
-if __name__== '__main__':
+if __name__ == '__main__':
     root_path = input("\n Please enter the root path: ")
     buildTinyImageNet = BuildTinyImageNetDataset(root_path)
+    rgb_mean = buildTinyImageNet.buildDataSet()
