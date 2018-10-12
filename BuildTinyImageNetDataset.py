@@ -66,7 +66,9 @@ class BuildTinyImageNetDataset:
         return train_HDF5, val_HDF5, test_HDF5
 
     def buildDataSet(self):
+        # safety check to test whether files have already been built or not
         # extract all the training paths from the subdirs
+
         train_paths = [os.path.join(root, filename) for root, subdirs, files in os.walk(self.global_train_path)
                        for filename in files if filename.endswith(".JPEG")]
 

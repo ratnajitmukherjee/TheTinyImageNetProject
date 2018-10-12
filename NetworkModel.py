@@ -48,9 +48,7 @@ class BuildNetworkModel:
 
     # Define the convolution layer
     def conv2d_bn(self, x, filter_size, kernel_size, padding_type, activation_type):
-        weight=5e-4
-        x = Conv2D(filters=filter_size, kernel_size=kernel_size, kernel_regularizer=l2(weight), padding=padding_type,
-                   activation='linear')(x)
+        weight = 5e-4
         x = Conv2D(filters=filter_size, kernel_size=kernel_size, kernel_regularizer=l2(weight), padding=padding_type,
                    activation='linear')(x)
         x = Activation(activation_type)(x)
@@ -73,25 +71,27 @@ class BuildNetworkModel:
         net = self.conv2d_bn(input_layer, filter_size=64, kernel_size=3, padding_type='same', activation_type='elu')
         net = self.conv2d_bn(net, filter_size=64, kernel_size=3, padding_type='same', activation_type='elu')
         net = self.maxpool_2d(net, pool_size=2, stride_size=2, padding_type='same')
+        # second block of conv2d -> MaxPool layers
+        net = self.conv2d_bn(net, filter_size=128, kernel_size=3, padding_type='same', activation_type='elu')
+        net = self.conv2d_bn(net, filter_size=128, kernel_size=3, padding_type='same', activation_type='elu')
+        net = self.maxpool_2d(net, pool_size=2, stride_size=2, padding_type='same')
         # Third block of conv2d -> MaxPool layers
-        net = self.conv2d_bn(net, filter_size=128, kernel_size=3, padding_type='same', activation_type='elu')
-        net = self.conv2d_bn(net, filter_size=128, kernel_size=3, padding_type='same', activation_type='elu')
+        net = self.conv2d_bn(net, filter_size=256, kernel_size=3, padding_type='same', activation_type='elu')
+        net = self.conv2d_bn(net, filter_size=256, kernel_size=3, padding_type='same', activation_type='elu')
+        net = self.conv2d_bn(net, filter_size=256, kernel_size=3, padding_type='same', activation_type='elu')
         net = self.maxpool_2d(net, pool_size=2, stride_size=2, padding_type='same')
         # Fourth block of conv2d -> MaxPool layers
-        net = self.conv2d_bn(net, filter_size=256, kernel_size=3, padding_type='same', activation_type='elu')
-        net = self.conv2d_bn(net, filter_size=256, kernel_size=3, padding_type='same', activation_type='elu')
-        net = self.conv2d_bn(net, filter_size=256, kernel_size=3, padding_type='same', activation_type='elu')
-        net = self.maxpool_2d(net, pool_size=2, stride_size=2, padding_type='same')
-        # Fifth block of conv2d -> MaxPool layers
         net = self.conv2d_bn(net, filter_size=512, kernel_size=3, padding_type='same', activation_type='elu')
         net = self.conv2d_bn(net, filter_size=512, kernel_size=3, padding_type='same', activation_type='elu')
         net = self.conv2d_bn(net, filter_size=512, kernel_size=3, padding_type='same', activation_type='elu')
         net = self.maxpool_2d(net, pool_size=2, stride_size=2, padding_type='same')
+        # Fifth block
+        net = self.conv2d_bn(net, filter_size=512, kernel_size=3, padding_type='same', activation_type='elu')
         # Flatten layer
         net = Flatten()(net)
-        net = Dense(4096, activation='elu')(net)
+        net = Dense(2048, activation='elu')(net)
         net = Dropout(0.5)(net)
-        net = Dense(4096, activation='elu')(net)
+        net = Dense(2048, activation='elu')(net)
         net = Dropout(0.5)(net)        
         net = Dense(num_classes, activation='softmax')(net) 
 
