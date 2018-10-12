@@ -102,7 +102,7 @@ class TrainTinyImageNet:
         """
         buildNetwork = BuildNetworkModel()
         model = buildNetwork.buildSequentialModel(inputsize=input_size, num_classes=num_classes)
-        model.summary()
+        # model.summary()
 
         model.compile(loss='categorical_crossentropy', optimizer='Adam', metrics=['accuracy'])
 

@@ -71,7 +71,7 @@ class BuildNetworkModel:
         net = self.conv2d_bn(input_layer, filter_size=64, kernel_size=3, padding_type='same', activation_type='elu')
         net = self.conv2d_bn(net, filter_size=64, kernel_size=3, padding_type='same', activation_type='elu')
         net = self.maxpool_2d(net, pool_size=2, stride_size=2, padding_type='same')
-        net = Dropout(0.1)
+        net = Dropout(0.1)(net)
         # second block of conv2d -> MaxPool layers
         net = self.conv2d_bn(net, filter_size=128, kernel_size=3, padding_type='same', activation_type='elu')
         net = self.conv2d_bn(net, filter_size=128, kernel_size=3, padding_type='same', activation_type='elu')
