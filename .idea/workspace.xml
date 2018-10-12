@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="34cdc33d-9a33-46ea-b159-7fa65e5e41b5" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TrainNetwork.py" afterPath="$PROJECT_DIR$/TrainNetwork.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -288,7 +287,14 @@
       <option name="project" value="LOCAL" />
       <updated>1539365246955</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="1) Created TinyImageNet dataset builder class&#10;2) Created NetworkModel class&#10;3) Created TrainNetwork class&#10;4) Added ImagePreprocessor class&#10;5) Added HDF5Generator and HDF5Writer class&#10;6) Added a learning rate scheduler for variable learning rate&#10;&#10;##-----------------------##&#10;Corrected mistake in NetworkModel class&#10;&#10;Changed optimizer to Adam&#10;&#10;Signed-off-by: Ratnajit Mukherjee &lt;ratnajitmukherjee@gmail.com&gt;">
+      <created>1539365791250</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1539365791250</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="ToolWindowManager">
