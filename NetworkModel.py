@@ -36,6 +36,7 @@
 """
 
 from keras.layers import Input, Conv2D, BatchNormalization, MaxPooling2D, Flatten, Dense, Activation, Dropout
+from keras.layers.advanced_activations import LeakyReLU
 from keras.layers import Lambda, concatenate, AveragePooling2D, Add
 from keras.models import Model
 from keras.regularizers import l2
@@ -51,7 +52,10 @@ class BuildNetworkModel:
         weight = 5e-4
         x = Conv2D(filters=filter_size, kernel_size=kernel_size, kernel_regularizer=l2(weight), padding=padding_type,
                    activation='linear')(x)
-        x = Activation(activation_type)(x)
+        if activation_type == 'LeakyRelu':
+            x = LeakyReLU(alpha=0.3)(x)
+        else:
+            x = Activation(activation_type)(x)
         x = BatchNormalization(axis=-1)(x)
         return x
     
@@ -68,31 +72,30 @@ class BuildNetworkModel:
     def buildSequentialModel(self, inputsize, num_classes):
         input_layer = Input((64, 64, 3))
         # First block of conv2d -> Maxpool layers
-        net = self.conv2d_bn(input_layer, filter_size=64, kernel_size=3, padding_type='same', activation_type='elu')
-        net = self.conv2d_bn(net, filter_size=64, kernel_size=3, padding_type='same', activation_type='elu')
+        net = self.conv2d_bn(input_layer, filter_size=64, kernel_size=3, padding_type='same', activation_type='LeakyRelu')
+        net = self.conv2d_bn(net, filter_size=64, kernel_size=3, padding_type='same', activation_type='LeakyRelu')
         net = self.maxpool_2d(net, pool_size=2, stride_size=2, padding_type='same')
-        net = Dropout(0.1)(net)
         # second block of conv2d -> MaxPool layers
-        net = self.conv2d_bn(net, filter_size=128, kernel_size=3, padding_type='same', activation_type='elu')
-        net = self.conv2d_bn(net, filter_size=128, kernel_size=3, padding_type='same', activation_type='elu')
+        net = self.conv2d_bn(net, filter_size=128, kernel_size=3, padding_type='same', activation_type='LeakyRelu')
+        net = self.conv2d_bn(net, filter_size=128, kernel_size=3, padding_type='same', activation_type='LeakyRelu')
+        net = self.maxpool_2d(net, pool_size=2, stride_size=2, padding_type='same')
+        # Third block of conv2d -> MaxPool layers
+        net = self.conv2d_bn(net, filter_size=256, kernel_size=3, padding_type='same', activation_type='LeakyRelu')
+        net = self.conv2d_bn(net, filter_size=256, kernel_size=3, padding_type='same', activation_type='LeakyRelu')
+        net = self.maxpool_2d(net, pool_size=2, stride_size=2, padding_type='same')
+        # Fourth block of conv2d -> MaxPool layers
+        net = self.conv2d_bn(net, filter_size=512, kernel_size=3, padding_type='same', activation_type='LeakyRelu')
+        net = self.conv2d_bn(net, filter_size=512, kernel_size=3, padding_type='same', activation_type='LeakyRelu')
         net = self.maxpool_2d(net, pool_size=2, stride_size=2, padding_type='same')
         net = Dropout(0.15)(net)
-        # Third block of conv2d -> MaxPool layers
-        net = self.conv2d_bn(net, filter_size=256, kernel_size=3, padding_type='same', activation_type='elu')
-        net = self.conv2d_bn(net, filter_size=256, kernel_size=3, padding_type='same', activation_type='elu')        
-        net = self.maxpool_2d(net, pool_size=2, stride_size=2, padding_type='same')
-        net = Dropout(0.2)(net)
-        # Fourth block of conv2d -> MaxPool layers
-        net = self.conv2d_bn(net, filter_size=512, kernel_size=3, padding_type='same', activation_type='elu')
-        net = self.conv2d_bn(net, filter_size=512, kernel_size=3, padding_type='same', activation_type='elu')
-        net = self.maxpool_2d(net, pool_size=2, stride_size=2, padding_type='same')
-        net = Dropout(0.25)(net)
         # Flatten layer
         net = Flatten()(net)
-        net = Dense(2048, activation='elu')(net)
+        net = Dense(2048, activation='linear')(net)
+        net = LeakyReLU(alpha=0.3)(net)
+        net = Dropout(0.4)(net)
+        net = Dense(2048, activation='linear')(net)
+        net = LeakyReLU(alpha=0.3)(net)
         net = Dropout(0.5)(net)
-        net = Dense(2048, activation='elu')(net)
-        net = Dropout(0.5)(net)        
         net = Dense(num_classes, activation='softmax')(net) 
 
         # Create the complete model

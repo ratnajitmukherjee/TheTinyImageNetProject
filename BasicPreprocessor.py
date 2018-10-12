@@ -37,36 +37,17 @@
 """
 
 """
-Description: Class to preprocess the image according to the requirements of the project. 
-1) Simple Preprocessing: resize to the required size if the image file is not in the 
+***Description***
+Basic Preprocessing: resize to the required size if the image file is not in the 
 correct input layer size
-
-2) Mean Preprocessing: Subtract the mean of the dataset from the input image
-
-3) Convert the image to Keras array for processing
 """
 import cv2
-from keras.preprocessing.image import img_to_array
 
-class ImageProcessor:
-    def __init__(self, width, height, RMean, GMean, BMean, dataFormat=None):
+
+class BasicPreprocessing:
+    def __init__(self, width, height):
         self.width = width
         self.height = height
-        self.rMean = RMean
-        self.gMean = GMean
-        self.bMean = BMean
-        self.dataFormat = dataFormat
 
     def preprocess(self, image):
-        # simple preprocessing
-        img = cv2.resize(image, (self.width, self.height), interpolation=cv2.INTER_AREA)
-
-        # subtraction of mean
-        (B, G, R) = cv2.split(img.astype('float32'))
-        B -= self.bMean
-        G -= self.gMean
-        R -= self.rMean
-        img = cv2.merge([B, G, R])
-
-        # converting img to keras array
-        return img_to_array(img, data_format=self.dataFormat)
+        return cv2.resize(image, (self.width, self.height), cv2.INTER_AREA)

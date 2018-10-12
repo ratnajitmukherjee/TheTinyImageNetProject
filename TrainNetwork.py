@@ -35,7 +35,9 @@
  " Date: October 2018
 """
 from NetworkModel import BuildNetworkModel
-from ImagePreprocessing import ImageProcessor
+from BasicPreprocessor import BasicPreprocessing
+from MeanPreprocessor import MeanPreprocessing
+from ImagetoArrayPreprocessor import ImagetoArrayPreprocessor
 from hdf5datasetgenerator import HDF5DatasetGenerator
 from BuildTinyImageNetDataset import BuildTinyImageNetDataset
 from keras.callbacks import EarlyStopping, LearningRateScheduler, ModelCheckpoint
@@ -53,6 +55,7 @@ class TrainTinyImageNet:
         self.root_path = root_path
 
     def model_plot_history(self, train):
+        plt.style.use('seaborn-darkgrid')
         plt.plot(train.history['acc'], 'r+', linestyle='-', label='Training accuracy')
         plt.plot(train.history['loss'], 'b+', linestyle='-.', label='Training loss')
 
@@ -62,17 +65,16 @@ class TrainTinyImageNet:
         plt.ylabel("Model Training History")
         plt.xlabel("Epochs")
         plt.legend(loc='upper right')
-        plt.style.use('seaborn-darkgrid')
         plt.show()
         return
 
     def lr_schedule(self, epoch):
         lr_rate = 0.001
-        if epoch > 75:
+        if epoch > 50:
             lr_rate = 0.0005
-        elif epoch > 100:
+        elif epoch > 75:
             lr_rate = 0.00002
-        elif epoch > 125:
+        elif epoch > 100:
             lr_rate = 0.00001
         return lr_rate
 
@@ -95,18 +97,17 @@ class TrainTinyImageNet:
         """
         data-augmentation and generating minibatches for training and validation
         """
-        train_data_aug = ImageDataGenerator(rotation_range=20, zoom_range=0.3, width_shift_range=0.15,
-                                            height_shift_range=0.15, shear_range=0.15, horizontal_flip=True,
+        train_data_aug = ImageDataGenerator(rotation_range=20, zoom_range=0.3, horizontal_flip=True,
                                             fill_mode='nearest')
 
-        ip = ImageProcessor(width=input_size[0], height=input_size[1],
-                            RMean=rgb_mean['RMean'], GMean=rgb_mean['GMean'], BMean=rgb_mean['BMean'],
-                            dataFormat=None)
+        bp = BasicPreprocessing(input_size[0], input_size[1])
+        mp = MeanPreprocessing(rgb_mean['Rmean'], rgb_mean['Gmean'], rgb_mean['Bmean'])
+        iap = ImagetoArrayPreprocessor()
 
-        trainGen = HDF5DatasetGenerator(dbPath=train_HDF5, batchSize=64, preprocessors=[ip],
+        trainGen = HDF5DatasetGenerator(dbPath=train_HDF5, batchSize=64, preprocessors=[bp, mp, iap],
                                         aug=train_data_aug, classes=num_classes)
 
-        valGen = HDF5DatasetGenerator(dbPath=val_HDF5, batchSize=64, preprocessors=[ip], classes=num_classes)
+        valGen = HDF5DatasetGenerator(dbPath=val_HDF5, batchSize=64, preprocessors=[bp, mp, iap], classes=num_classes)
 
         """
         load model and compile with custom optimization flags if required
@@ -146,5 +147,5 @@ if __name__ == '__main__':
     trainTinyImageNet = TrainTinyImageNet(root_path=root_path)
     input_size = (64, 64, 3)
     num_classes = 200
-    num_epochs = 135
+    num_epochs = 110
     trainTinyImageNet.train_tinyimagenet(input_size=input_size, num_classes=num_classes, num_epochs=num_epochs)
