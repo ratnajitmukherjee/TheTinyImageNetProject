@@ -61,7 +61,7 @@ class TrainTinyImageNet:
         plt.ylabel("Model Training History")
         plt.xlabel("Epochs")
         plt.legend(loc='upper right')
-        plt.grid(True)
+        plt.style.use('seaborn-darkgrid')
         plt.show()
         return
 
