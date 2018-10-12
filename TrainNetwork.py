@@ -40,6 +40,7 @@ from hdf5datasetgenerator import HDF5DatasetGenerator
 from BuildTinyImageNetDataset import BuildTinyImageNetDataset
 from keras.callbacks import EarlyStopping, LearningRateScheduler, ModelCheckpoint
 from keras.preprocessing.image import ImageDataGenerator
+from keras.optimizers import Adam
 from keras.models import load_model
 import keras.backend as K
 import matplotlib.pyplot as plt
@@ -113,7 +114,7 @@ class TrainTinyImageNet:
         buildNetwork = BuildNetworkModel()
         model = buildNetwork.buildSequentialModel(inputsize=input_size, num_classes=num_classes)
         # model.summary()
-
+        myOpt = Adam(lr=0.001, amsgrad=True)
         model.compile(loss='categorical_crossentropy', optimizer='Adam', metrics=['accuracy'])
 
         """
@@ -125,7 +126,7 @@ class TrainTinyImageNet:
                                    ModelCheckpoint(tiny_imagenet_checkpoints, monitor='val_acc', mode='auto', period=5),
                                    LearningRateScheduler(schedule=self.lr_schedule)]
 
-        tiny_imagenet_train = model.fit_generator(trainGen.generator(), trainGen.numImages//64, epochs=200,
+        tiny_imagenet_train = model.fit_generator(trainGen.generator(), trainGen.numImages//64, epochs=num_epochs,
                                                   verbose=True, validation_data=valGen.generator(),
                                                   validation_steps=valGen.numImages//64, max_queue_size=128,
                                                   callbacks=tiny_imagenet_callbacks)
