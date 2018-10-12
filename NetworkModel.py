@@ -85,8 +85,6 @@ class BuildNetworkModel:
         net = self.conv2d_bn(net, filter_size=512, kernel_size=3, padding_type='same', activation_type='elu')
         net = self.conv2d_bn(net, filter_size=512, kernel_size=3, padding_type='same', activation_type='elu')
         net = self.maxpool_2d(net, pool_size=2, stride_size=2, padding_type='same')
-        # Fifth block
-        net = self.conv2d_bn(net, filter_size=512, kernel_size=3, padding_type='same', activation_type='elu')
         # Flatten layer
         net = Flatten()(net)
         net = Dense(2048, activation='elu')(net)

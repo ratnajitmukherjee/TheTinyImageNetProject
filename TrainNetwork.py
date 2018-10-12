@@ -85,7 +85,7 @@ class TrainTinyImageNet:
         """
         data-augmentation and generating minibatches for training and validation
         """
-        train_data_aug = ImageDataGenerator(rotation_range=25, zoom_range=0.5, width_shift_range=0.15,
+        train_data_aug = ImageDataGenerator(rotation_range=20, zoom_range=0.3, width_shift_range=0.15,
                                             height_shift_range=0.15, shear_range=0.15, horizontal_flip=True,
                                             fill_mode='nearest')
 
