@@ -3,8 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="34cdc33d-9a33-46ea-b159-7fa65e5e41b5" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/NetworkModel.py" afterPath="$PROJECT_DIR$/NetworkModel.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TrainNetwork.py" afterPath="$PROJECT_DIR$/TrainNetwork.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -45,9 +43,11 @@
       <file leaf-file-name="TrainNetwork.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/TrainNetwork.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="966">
-              <caret line="42" column="35" lean-forward="true" selection-start-line="42" selection-start-column="35" selection-end-line="42" selection-end-column="35" />
-              <folding />
+            <state relative-caret-position="1150">
+              <caret line="50" column="57" lean-forward="true" selection-start-line="50" selection-start-column="57" selection-end-line="50" selection-end-column="57" />
+              <folding>
+                <element signature="e#1850#1892#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -259,7 +259,14 @@
       <option name="project" value="LOCAL" />
       <updated>1539361234887</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="1) Created TinyImageNet dataset builder class&#10;2) Created NetworkModel class&#10;3) Created TrainNetwork class&#10;4) Added ImagePreprocessor class&#10;5) Added HDF5Generator and HDF5Writer class&#10;&#10;##-----------------------##&#10;Corrected mistake in NetworkModel class&#10;&#10;Changed optimizer to Adam&#10;&#10;Signed-off-by: Ratnajit Mukherjee &lt;ratnajitmukherjee@gmail.com&gt;">
+      <created>1539363961208</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1539363961208</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -297,7 +304,8 @@
     <MESSAGE value="1) Created imagenet dataset builder class&#10;2) Created TrainNetwork class" />
     <MESSAGE value="1) Created imagenet dataset builder class&#10;2) Created TrainNetwork class&#10;3) Started TrainNetwork class" />
     <MESSAGE value="1) Created TinyImageNet dataset builder class&#10;2) Created NetworkModel class&#10;3) Created TrainNetwork class&#10;4) Added ImagePreprocessor class&#10;5) Added HDF5Generator and HDF5Writer class&#10;&#10;##-----------------------##&#10;Corrected mistake in NetworkModel class" />
-    <option name="LAST_COMMIT_MESSAGE" value="1) Created TinyImageNet dataset builder class&#10;2) Created NetworkModel class&#10;3) Created TrainNetwork class&#10;4) Added ImagePreprocessor class&#10;5) Added HDF5Generator and HDF5Writer class&#10;&#10;##-----------------------##&#10;Corrected mistake in NetworkModel class" />
+    <MESSAGE value="1) Created TinyImageNet dataset builder class&#10;2) Created NetworkModel class&#10;3) Created TrainNetwork class&#10;4) Added ImagePreprocessor class&#10;5) Added HDF5Generator and HDF5Writer class&#10;&#10;##-----------------------##&#10;Corrected mistake in NetworkModel class&#10;&#10;Changed optimizer to Adam&#10;&#10;Signed-off-by: Ratnajit Mukherjee &lt;ratnajitmukherjee@gmail.com&gt;" />
+    <option name="LAST_COMMIT_MESSAGE" value="1) Created TinyImageNet dataset builder class&#10;2) Created NetworkModel class&#10;3) Created TrainNetwork class&#10;4) Added ImagePreprocessor class&#10;5) Added HDF5Generator and HDF5Writer class&#10;&#10;##-----------------------##&#10;Corrected mistake in NetworkModel class&#10;&#10;Changed optimizer to Adam&#10;&#10;Signed-off-by: Ratnajit Mukherjee &lt;ratnajitmukherjee@gmail.com&gt;" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -338,7 +346,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1817">
           <caret line="89" column="64" lean-forward="true" selection-start-line="89" selection-start-column="64" selection-end-line="89" selection-end-column="64" />
-          <folding />
+          <folding>
+            <element signature="e#1850#1892#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -390,7 +400,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1242">
           <caret line="58" column="0" lean-forward="false" selection-start-line="58" selection-start-column="0" selection-end-line="58" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="e#1850#1892#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -449,9 +461,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/TrainNetwork.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="966">
-          <caret line="42" column="35" lean-forward="true" selection-start-line="42" selection-start-column="35" selection-end-line="42" selection-end-column="35" />
-          <folding />
+        <state relative-caret-position="1150">
+          <caret line="50" column="57" lean-forward="true" selection-start-line="50" selection-start-column="57" selection-end-line="50" selection-end-column="57" />
+          <folding>
+            <element signature="e#1850#1892#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
