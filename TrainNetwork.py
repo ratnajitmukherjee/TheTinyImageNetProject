@@ -39,7 +39,6 @@ from ImagePreprocessing import ImageProcessor
 from hdf5datasetgenerator import HDF5DatasetGenerator
 from BuildTinyImageNetDataset import BuildTinyImageNetDataset
 from keras.callbacks import EarlyStopping, LearningRateScheduler, ModelCheckpoint
-from keras.optimizers import Nadam
 from keras.preprocessing.image import ImageDataGenerator
 from keras.models import load_model
 import keras.backend as K
@@ -85,7 +84,7 @@ class TrainTinyImageNet:
         """
         data-augmentation and generating minibatches for training and validation
         """
-        train_data_aug = ImageDataGenerator(rotation_range=25, zoom_range=0.5, width_shift_range=0.15,
+        train_data_aug = ImageDataGenerator(rotation_range=20, zoom_range=0.3, width_shift_range=0.15,
                                             height_shift_range=0.15, shear_range=0.15, horizontal_flip=True,
                                             fill_mode='nearest')
 
@@ -105,7 +104,7 @@ class TrainTinyImageNet:
         model = buildNetwork.buildSequentialModel(inputsize=input_size, num_classes=num_classes)
         model.summary()
 
-        model.compile(loss='categorical_crossentropy', optimizer='Nadam', metrics=['accuracy'])
+        model.compile(loss='categorical_crossentropy', optimizer='Adam', metrics=['accuracy'])
 
         """
         building checkpoint path and training
