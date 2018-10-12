@@ -65,7 +65,17 @@ class TrainTinyImageNet:
         plt.show()
         return
 
-    def train_tinyimagenet(self, input_size, num_classes):
+    def lr_schedule(self, epoch):
+        lr_rate = 0.001
+        if epoch > 75:
+            lr_rate = 0.0005
+        elif epoch > 100:
+            lr_rate = 0.00002
+        elif epoch > 125:
+            lr_rate = 0.00001
+        return lr_rate
+
+    def train_tinyimagenet(self, input_size, num_classes, num_epochs):
         buildDataSet = BuildTinyImageNetDataset(self.root_path)
         (train_HDF5, val_HDF5, test_HDF5) = buildDataSet.configDataSet()
 
@@ -110,8 +120,10 @@ class TrainTinyImageNet:
         building checkpoint path and training
         """
         tiny_imagenet_checkpoints = os.path.join(root_path, 'TinyImageNet_checkpoint_{epoch:02d}-{val_acc:.2f}.hdf5')
+
         tiny_imagenet_callbacks = [EarlyStopping(monitor='val_loss', patience=15, mode='auto'),
-                                   ModelCheckpoint(tiny_imagenet_checkpoints, monitor='val_acc', mode='auto', period=5)]
+                                   ModelCheckpoint(tiny_imagenet_checkpoints, monitor='val_acc', mode='auto', period=5),
+                                   LearningRateScheduler(schedule=self.lr_schedule)]
 
         tiny_imagenet_train = model.fit_generator(trainGen.generator(), trainGen.numImages//64, epochs=200,
                                                   verbose=True, validation_data=valGen.generator(),
@@ -133,4 +145,5 @@ if __name__ == '__main__':
     trainTinyImageNet = TrainTinyImageNet(root_path=root_path)
     input_size = (64, 64, 3)
     num_classes = 200
-    trainTinyImageNet.train_tinyimagenet(input_size=input_size, num_classes=num_classes)
+    num_epochs = 135
+    trainTinyImageNet.train_tinyimagenet(input_size=input_size, num_classes=num_classes, num_epochs=num_epochs)
