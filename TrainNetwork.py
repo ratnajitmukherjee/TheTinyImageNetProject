@@ -56,11 +56,11 @@ class TrainTinyImageNet:
 
     def model_plot_history(self, train):
         plt.style.use('seaborn-darkgrid')
-        plt.plot(train.history['acc'], 'r+', linestyle='-', label='Training accuracy')
-        plt.plot(train.history['loss'], 'b+', linestyle='-.', label='Training loss')
+        plt.semilogy(train.history['acc'], 'r+', linestyle='-', label='Training accuracy')
+        plt.semilogy(train.history['loss'], 'b+', linestyle='-.', label='Training loss')
 
-        plt.plot(train.history['val_acc'], 'rx', linestyle='-', label='Validation accuracy')
-        plt.plot(train.history['val_loss'], 'bx', linestyle='-.', label='Validation loss')
+        plt.semilogy(train.history['val_acc'], 'rx', linestyle='-', label='Validation accuracy')
+        plt.semilogy(train.history['val_loss'], 'bx', linestyle='-.', label='Validation loss')
         plt.minorticks_on()
         plt.ylabel("Model Training History")
         plt.xlabel("Epochs")
@@ -70,11 +70,11 @@ class TrainTinyImageNet:
 
     def lr_schedule(self, epoch):
         lr_rate = 0.001
-        if epoch > 50:
+        if epoch > 40:
             lr_rate = 0.0005
-        elif epoch > 75:
+        elif epoch > 65:
             lr_rate = 0.00002
-        elif epoch > 100:
+        elif epoch > 85:
             lr_rate = 0.00001
         return lr_rate
 
@@ -101,7 +101,7 @@ class TrainTinyImageNet:
                                             fill_mode='nearest')
 
         bp = BasicPreprocessing(input_size[0], input_size[1])
-        mp = MeanPreprocessing(rgb_mean['Rmean'], rgb_mean['Gmean'], rgb_mean['Bmean'])
+        mp = MeanPreprocessing(rgb_mean['RMean'], rgb_mean['GMean'], rgb_mean['BMean'])
         iap = ImagetoArrayPreprocessor()
 
         trainGen = HDF5DatasetGenerator(dbPath=train_HDF5, batchSize=64, preprocessors=[bp, mp, iap],
@@ -147,5 +147,5 @@ if __name__ == '__main__':
     trainTinyImageNet = TrainTinyImageNet(root_path=root_path)
     input_size = (64, 64, 3)
     num_classes = 200
-    num_epochs = 110
+    num_epochs = 100
     trainTinyImageNet.train_tinyimagenet(input_size=input_size, num_classes=num_classes, num_epochs=num_epochs)

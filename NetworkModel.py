@@ -40,6 +40,7 @@ from keras.layers.advanced_activations import LeakyReLU
 from keras.layers import Lambda, concatenate, AveragePooling2D, Add
 from keras.models import Model
 from keras.regularizers import l2
+from keras.initializers import VarianceScaling
 from keras import backend as K
 
 
@@ -50,8 +51,9 @@ class BuildNetworkModel:
     # Define the convolution layer
     def conv2d_bn(self, x, filter_size, kernel_size, padding_type, activation_type):
         weight = 5e-4
-        x = Conv2D(filters=filter_size, kernel_size=kernel_size, kernel_regularizer=l2(weight), padding=padding_type,
-                   activation='linear')(x)
+        x = Conv2D(filters=filter_size, kernel_size=kernel_size, kernel_regularizer=l2(weight),
+                   kernel_initializer=VarianceScaling(scale=2.0, mode='fan_in', distribution='normal', seed=None),
+                   padding=padding_type, activation='linear')(x)
         if activation_type == 'LeakyRelu':
             x = LeakyReLU(alpha=0.3)(x)
         else:
@@ -82,12 +84,13 @@ class BuildNetworkModel:
         # Third block of conv2d -> MaxPool layers
         net = self.conv2d_bn(net, filter_size=256, kernel_size=3, padding_type='same', activation_type='LeakyRelu')
         net = self.conv2d_bn(net, filter_size=256, kernel_size=3, padding_type='same', activation_type='LeakyRelu')
+        net = self.conv2d_bn(net, filter_size=256, kernel_size=3, padding_type='same', activation_type='LeakyRelu')
         net = self.maxpool_2d(net, pool_size=2, stride_size=2, padding_type='same')
         # Fourth block of conv2d -> MaxPool layers
         net = self.conv2d_bn(net, filter_size=512, kernel_size=3, padding_type='same', activation_type='LeakyRelu')
         net = self.conv2d_bn(net, filter_size=512, kernel_size=3, padding_type='same', activation_type='LeakyRelu')
         net = self.maxpool_2d(net, pool_size=2, stride_size=2, padding_type='same')
-        net = Dropout(0.15)(net)
+        net = Dropout(0.2)(net)
         # Flatten layer
         net = Flatten()(net)
         net = Dense(2048, activation='linear')(net)
@@ -95,7 +98,7 @@ class BuildNetworkModel:
         net = Dropout(0.4)(net)
         net = Dense(2048, activation='linear')(net)
         net = LeakyReLU(alpha=0.3)(net)
-        net = Dropout(0.5)(net)
+        net = Dropout(0.4)(net)
         net = Dense(num_classes, activation='softmax')(net) 
 
         # Create the complete model
