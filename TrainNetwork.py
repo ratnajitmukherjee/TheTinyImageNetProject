@@ -35,6 +35,7 @@
  " Date: October 2018
 """
 from NetworkModel import BuildNetworkModel
+from InceptionV4NetworkModel import InceptionV4
 from BasicPreprocessor import BasicPreprocessing
 from MeanPreprocessor import MeanPreprocessing
 from ImagetoArrayPreprocessor import ImagetoArrayPreprocessor
@@ -70,15 +71,15 @@ class TrainTinyImageNet:
 
     def lr_schedule(self, epoch):
         lr_rate = 0.001
-        if epoch > 40:
+        if epoch > 50:
             lr_rate = 0.0005
-        elif epoch > 65:
+        elif epoch > 75:
             lr_rate = 0.00002
-        elif epoch > 85:
+        elif epoch > 95:
             lr_rate = 0.00001
         return lr_rate
 
-    def train_tinyimagenet(self, input_size, num_classes, num_epochs):
+    def train_tinyimagenet(self, input_size, num_classes, pretrained_model, new_model_name, new_lr, num_epochs):
         buildDataSet = BuildTinyImageNetDataset(self.root_path)
         (train_HDF5, val_HDF5, test_HDF5) = buildDataSet.configDataSet()
 
@@ -112,19 +113,39 @@ class TrainTinyImageNet:
         """
         load model and compile with custom optimization flags if required
         """
-        buildNetwork = BuildNetworkModel()
-        model = buildNetwork.buildSequentialModel(inputsize=input_size, num_classes=num_classes)
-        # model.summary()
-        myOpt = Adam(lr=0.001, amsgrad=True)
-        model.compile(loss='categorical_crossentropy', optimizer='Adam', metrics=['accuracy'])
+        if pretrained_model is None:
+            """
+            Sequential model
+            """
+            # buildNetwork = BuildNetworkModel()
+            # model = buildNetwork.buildSequentialModel(inputsize=input_size, num_classes=num_classes)
+
+            """
+            Inception V4 model
+            """
+            inceptionNet = InceptionV4()
+            model = inceptionNet.inceptionv4_custom(input_size=input_size, num_classes=num_classes)
+
+            myOpt = Adam(lr=0.001, amsgrad=True)
+            model.compile(loss='categorical_crossentropy', optimizer=myOpt, metrics=['accuracy'])
+        else:
+            model = load_model(os.path.join(self.root_path, pretrained_model))
+            if new_lr is None:
+                old_learning_rate = K.get_value(model.optimizer.lr)
+                new_lr = old_learning_rate / 10
+                K.set_value(model.optimizer.lr, new_lr)
+            else:
+                old_learning_rate = K.get_value(model.optimizer.lr)
+                K.set_value(model.optimizer.lr, new_lr)
+                print("\n Changing learning rate from {0} to {1}".format(old_learning_rate, new_lr))
+
 
         """
         building checkpoint path and training
         """
-        tiny_imagenet_checkpoints = os.path.join(root_path, 'TinyImageNet_checkpoint_{epoch:02d}-{val_acc:.2f}.hdf5')
+        tiny_imagenet_checkpoints = os.path.join(root_path, 'checkpoint_{epoch:02d}-{val_acc:.2f}.hdf5')
 
-        tiny_imagenet_callbacks = [EarlyStopping(monitor='val_loss', patience=15, mode='auto'),
-                                   ModelCheckpoint(tiny_imagenet_checkpoints, monitor='val_acc', mode='auto', period=5),
+        tiny_imagenet_callbacks = [ModelCheckpoint(tiny_imagenet_checkpoints, monitor='val_acc', mode='auto', period=5),
                                    LearningRateScheduler(schedule=self.lr_schedule)]
 
         tiny_imagenet_train = model.fit_generator(trainGen.generator(), trainGen.numImages//64, epochs=num_epochs,
@@ -135,7 +156,10 @@ class TrainTinyImageNet:
         trainGen.close()
         valGen.close()
 
-        model.save(filepath=os.path.join(self.root_path, 'TinyImageNetBaseline.hdf5'))
+        if new_model_name is None:
+            new_model_name = 'TinyImageNetBaseline.hdf5'
+
+        model.save(filepath=os.path.join(self.root_path, new_model_name))
         print('\n TRAINING COMPLETE........ \n')
 
         # plot model loss and accuracy
@@ -147,5 +171,11 @@ if __name__ == '__main__':
     trainTinyImageNet = TrainTinyImageNet(root_path=root_path)
     input_size = (64, 64, 3)
     num_classes = 200
-    num_epochs = 100
-    trainTinyImageNet.train_tinyimagenet(input_size=input_size, num_classes=num_classes, num_epochs=num_epochs)
+    num_epochs = 120
+    pretrained_model_name = None
+    new_model_name = 'TinyImageNet_InceptionV4.hdf5'
+    new_lr = None
+    trainTinyImageNet.train_tinyimagenet(input_size=input_size, num_classes=num_classes,
+                                         pretrained_model=pretrained_model_name,
+                                         new_model_name=new_model_name, new_lr=new_lr,
+                                         num_epochs=num_epochs)

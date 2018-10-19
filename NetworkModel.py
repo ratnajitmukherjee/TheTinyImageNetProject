@@ -41,7 +41,6 @@ from keras.layers import Lambda, concatenate, AveragePooling2D, Add
 from keras.models import Model
 from keras.regularizers import l2
 from keras.initializers import VarianceScaling
-from keras import backend as K
 
 
 class BuildNetworkModel:
@@ -49,9 +48,9 @@ class BuildNetworkModel:
         print("\n Loading Network Model...")
 
     # Define the convolution layer
-    def conv2d_bn(self, x, filter_size, kernel_size, padding_type, activation_type):
+    def conv2d_bn(self, x, filter_size, kernel_size, padding_type, activation_type, strides=(1, 1)):
         weight = 5e-4
-        x = Conv2D(filters=filter_size, kernel_size=kernel_size, kernel_regularizer=l2(weight),
+        x = Conv2D(filters=filter_size, kernel_size=kernel_size, strides=strides, kernel_regularizer=l2(weight),
                    kernel_initializer=VarianceScaling(scale=2.0, mode='fan_in', distribution='normal', seed=None),
                    padding=padding_type, activation='linear')(x)
         if activation_type == 'LeakyRelu':
