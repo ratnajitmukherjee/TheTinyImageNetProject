@@ -47,6 +47,7 @@ from keras.optimizers import Adam
 from keras.models import load_model
 import keras.backend as K
 import matplotlib.pyplot as plt
+import json
 import os
 
 
@@ -73,9 +74,9 @@ class TrainTinyImageNet:
         lr_rate = 0.001
         if epoch > 50:
             lr_rate = 0.0005
-        elif epoch > 75:
+        elif epoch > 80:
             lr_rate = 0.00002
-        elif epoch > 95:
+        elif epoch > 105:
             lr_rate = 0.00001
         return lr_rate
 
@@ -92,13 +93,21 @@ class TrainTinyImageNet:
 
         if os.path.isfile(train_HDF5 and val_HDF5 and test_HDF5):
             print('\n The dataset already exists. Skipping dataset building process')
-            rgb_mean = {'RMean': 123.68, 'GMean': 116.779, 'BMean': 103.939}
+            print('Loading RGB mean from file {0}'.format(os.path.join(self.root_path, 'rgb_mean.txt')))
+            fid = open(os.path.join(self.root_path, 'rgb_mean.txt'), 'r')
+            rgb_mean = json.load(fid)
+            fid.close()
         else:
             rgb_mean = buildDataSet.buildDataSet()
+            fid = open(os.path.join(self.root_path, 'rgb_mean.txt'), 'w')
+            fid.write(json.dumps(fid))
+            print('RGB mean from the dataset written to file {0}'.format(os.path.join(self.root_path, 'rgb_mean.txt')))
+            fid.close()
         """
         data-augmentation and generating minibatches for training and validation
         """
-        train_data_aug = ImageDataGenerator(rotation_range=20, zoom_range=0.3, horizontal_flip=True,
+        train_data_aug = ImageDataGenerator(rotation_range=20, zoom_range=0.2, width_shift_range=0.2,
+                                            height_shift_range=0.2, shear_range=0.1, horizontal_flip=True,
                                             fill_mode='nearest')
 
         bp = BasicPreprocessing(input_size[0], input_size[1])
