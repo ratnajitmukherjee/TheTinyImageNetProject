@@ -76,7 +76,7 @@ class TrainTinyImageNet:
             lr_rate = 0.0005
         elif epoch > 80:
             lr_rate = 0.00002
-        elif epoch > 105:
+        elif epoch > 100:
             lr_rate = 0.00001
         return lr_rate
 
@@ -154,7 +154,8 @@ class TrainTinyImageNet:
         """
         tiny_imagenet_checkpoints = os.path.join(root_path, 'checkpoint_{epoch:02d}-{val_acc:.2f}.hdf5')
 
-        tiny_imagenet_callbacks = [ModelCheckpoint(tiny_imagenet_checkpoints, monitor='val_acc', mode='auto', period=5),
+        tiny_imagenet_callbacks = [EarlyStopping(monitor='val_acc', patience=20, mode='auto'),
+                                   ModelCheckpoint(tiny_imagenet_checkpoints, monitor='val_acc', mode='auto', period=2),
                                    LearningRateScheduler(schedule=self.lr_schedule)]
 
         tiny_imagenet_train = model.fit_generator(trainGen.generator(), trainGen.numImages//64, epochs=num_epochs,

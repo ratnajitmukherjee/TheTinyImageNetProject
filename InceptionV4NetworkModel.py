@@ -168,14 +168,14 @@ class InceptionV4:
         net = self.inception_stem(input_layer)
 
         # call inception block A
-        for idx in range(2):
+        for idx in range(3):
             net = self.inceptionv4_block_A(net)
 
         # reduce inception block A
         net = self.inceptionv4_blockReduction_A(net)
 
         # call inception block B
-        for idx in range(2):
+        for idx in range(3):
             net = self.inceptionv4_block_B(net)
 
         # reduce inception block B

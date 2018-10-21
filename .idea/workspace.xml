@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="34cdc33d-9a33-46ea-b159-7fa65e5e41b5" name="Default" comment="">
+    <list default="true" id="34cdc33d-9a33-46ea-b159-7fa65e5e41b5" name="Default" comment="1) Changed model checkpoint period to two. &#10;&#10;Signed-off-by: Ratnajit Mukherjee &lt;ratnajitmukherjee@gmail.com&gt;">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/InceptionV4NetworkModel.py" afterPath="$PROJECT_DIR$/InceptionV4NetworkModel.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TrainNetwork.py" afterPath="$PROJECT_DIR$/TrainNetwork.py" />
@@ -20,11 +20,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-      <file leaf-file-name="InceptionV4NetworkModel.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="InceptionV4NetworkModel.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/InceptionV4NetworkModel.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="598">
-              <caret line="185" column="47" lean-forward="true" selection-start-line="185" selection-start-column="47" selection-end-line="185" selection-end-column="47" />
+            <state relative-caret-position="311">
+              <caret line="170" column="28" lean-forward="true" selection-start-line="170" selection-start-column="28" selection-end-line="170" selection-end-column="28" />
               <folding>
                 <element signature="e#1921#2030#0" expanded="true" />
               </folding>
@@ -32,11 +32,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TrainNetwork.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="TrainNetwork.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/TrainNetwork.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-287">
-              <caret line="107" column="11" lean-forward="true" selection-start-line="107" selection-start-column="11" selection-end-line="107" selection-end-column="11" />
+            <state relative-caret-position="1840">
+              <caret line="80" column="22" lean-forward="true" selection-start-line="80" selection-start-column="22" selection-end-line="80" selection-end-column="22" />
               <folding>
                 <element signature="e#1850#1892#0" expanded="true" />
               </folding>
@@ -325,7 +325,14 @@
       <option name="project" value="LOCAL" />
       <updated>1539969507391</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="1) Added InceptionV4 network to the project&#10;2) Changed TrainNetwork to use the Inception V4 network. &#10;3) Added more data augmentation&#10;4) Changed to correct RGB mean using JSON dump&#10;&#10;Signed-off-by: Ratnajit Mukherjee &lt;ratnajitmukherjee@gmail.com&gt;">
+      <created>1540132307273</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1540132307273</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -342,7 +349,7 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.39968404" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39968404" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -368,17 +375,11 @@
     <MESSAGE value="Changed image preprocessing to 3 different classes&#10;&#10;Signed-off-by: Ratnajit Mukherjee &lt;ratnajitmukherjee@gmail.com&gt;" />
     <MESSAGE value="1) Added Kernel Initializer to conv2d_bn layer&#10;&#10;Signed-off-by: Ratnajit Mukherjee &lt;ratnajitmukherjee@gmail.com&gt;" />
     <MESSAGE value="1) Added InceptionV4 network to the project&#10;2) Changed TrainNetwork to use the Inception V4 network. &#10;&#10;Signed-off-by: Ratnajit Mukherjee &lt;ratnajitmukherjee@gmail.com&gt;" />
-    <option name="LAST_COMMIT_MESSAGE" value="1) Added InceptionV4 network to the project&#10;2) Changed TrainNetwork to use the Inception V4 network. &#10;&#10;Signed-off-by: Ratnajit Mukherjee &lt;ratnajitmukherjee@gmail.com&gt;" />
+    <MESSAGE value="1) Added InceptionV4 network to the project&#10;2) Changed TrainNetwork to use the Inception V4 network. &#10;3) Added more data augmentation&#10;4) Changed to correct RGB mean using JSON dump&#10;&#10;Signed-off-by: Ratnajit Mukherjee &lt;ratnajitmukherjee@gmail.com&gt;" />
+    <option name="LAST_COMMIT_MESSAGE" value="1) Added InceptionV4 network to the project&#10;2) Changed TrainNetwork to use the Inception V4 network. &#10;3) Added more data augmentation&#10;4) Changed to correct RGB mean using JSON dump&#10;&#10;Signed-off-by: Ratnajit Mukherjee &lt;ratnajitmukherjee@gmail.com&gt;" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/TrainNetwork.py</url>
-          <line>95</line>
-          <option name="timeStamp" value="17" />
-        </line-breakpoint>
-      </breakpoints>
       <option name="time" value="18" />
     </breakpoint-manager>
     <watches-manager />
@@ -777,22 +778,22 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/TrainNetwork.py">
+    <entry file="file://$PROJECT_DIR$/InceptionV4NetworkModel.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-287">
-          <caret line="107" column="11" lean-forward="true" selection-start-line="107" selection-start-column="11" selection-end-line="107" selection-end-column="11" />
+        <state relative-caret-position="311">
+          <caret line="170" column="28" lean-forward="true" selection-start-line="170" selection-start-column="28" selection-end-line="170" selection-end-column="28" />
           <folding>
-            <element signature="e#1850#1892#0" expanded="true" />
+            <element signature="e#1921#2030#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/InceptionV4NetworkModel.py">
+    <entry file="file://$PROJECT_DIR$/TrainNetwork.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="598">
-          <caret line="185" column="47" lean-forward="true" selection-start-line="185" selection-start-column="47" selection-end-line="185" selection-end-column="47" />
+        <state relative-caret-position="1840">
+          <caret line="80" column="22" lean-forward="true" selection-start-line="80" selection-start-column="22" selection-end-line="80" selection-end-column="22" />
           <folding>
-            <element signature="e#1921#2030#0" expanded="true" />
+            <element signature="e#1850#1892#0" expanded="true" />
           </folding>
         </state>
       </provider>
