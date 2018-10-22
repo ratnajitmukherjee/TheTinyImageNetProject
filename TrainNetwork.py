@@ -41,7 +41,7 @@ from MeanPreprocessor import MeanPreprocessing
 from ImagetoArrayPreprocessor import ImagetoArrayPreprocessor
 from hdf5datasetgenerator import HDF5DatasetGenerator
 from BuildTinyImageNetDataset import BuildTinyImageNetDataset
-from keras.callbacks import EarlyStopping, LearningRateScheduler, ModelCheckpoint
+from keras.callbacks import EarlyStopping, LearningRateScheduler, ModelCheckpoint, ReduceLROnPlateau
 from keras.preprocessing.image import ImageDataGenerator
 from keras.optimizers import Adam
 from keras.models import load_model
@@ -156,7 +156,7 @@ class TrainTinyImageNet:
 
         tiny_imagenet_callbacks = [EarlyStopping(monitor='val_acc', patience=20, mode='auto'),
                                    ModelCheckpoint(tiny_imagenet_checkpoints, monitor='val_acc', mode='auto', period=2),
-                                   LearningRateScheduler(schedule=self.lr_schedule)]
+                                   ReduceLROnPlateau(monitor='val_acc', factor=0.5, patience=8, min_lr=1e-5)]
 
         tiny_imagenet_train = model.fit_generator(trainGen.generator(), trainGen.numImages//64, epochs=num_epochs,
                                                   verbose=True, validation_data=valGen.generator(),
@@ -181,10 +181,10 @@ if __name__ == '__main__':
     trainTinyImageNet = TrainTinyImageNet(root_path=root_path)
     input_size = (64, 64, 3)
     num_classes = 200
-    num_epochs = 15
-    pretrained_model_name = 'TinyImageNet_InceptionV4.hdf5'
-    new_model_name = 'TinyImageNet_InceptionV4_fn1.hdf5'
-    new_lr = 1e-4
+    num_epochs = 10
+    pretrained_model_name = 'TinyImageNet_InceptionV4_fn2.hdf5'
+    new_model_name = 'TinyImageNet_InceptionV4_fn3.hdf5'
+    new_lr = 0.00002
     trainTinyImageNet.train_tinyimagenet(input_size=input_size, num_classes=num_classes,
                                          pretrained_model=pretrained_model_name,
                                          new_model_name=new_model_name, new_lr=new_lr,
