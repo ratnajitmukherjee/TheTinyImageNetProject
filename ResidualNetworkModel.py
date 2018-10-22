@@ -36,7 +36,7 @@
 """
 # various imports
 from keras.layers import Input, Conv2D, BatchNormalization, MaxPooling2D, Flatten, Dense, Activation, Dropout
-from keras.layers import concatenate, AveragePooling2D, add
+from keras.layers import AveragePooling2D, add
 from keras.layers.advanced_activations import LeakyReLU
 from keras.initializers import VarianceScaling
 from keras.regularizers import l2
@@ -69,11 +69,11 @@ class ResNet:
     def residual_module(self, x, filter_size, stride_size, reduce=False):
         shortcut = x
         # First bn_conv2d block
-        conv1 = self.bn_conv2d(x, filter_size=int(filter_size * 0.25), kernel_size=1, padding_type='same', activation_type='linear')
+        conv1 = self.bn_conv2d(x, filter_size=int(filter_size * 0.25), kernel_size=1, padding_type='same', activation_type='LeakyRelu')
         # Second bn_conv2d block (this block also reduces spatial resolution)
-        conv2 = self.bn_conv2d(conv1, filter_size=int(filter_size * 0.25), kernel_size=3, padding_type='same', activation_type='linear', strides=stride_size)
+        conv2 = self.bn_conv2d(conv1, filter_size=int(filter_size * 0.25), kernel_size=3, padding_type='same', activation_type='LeakyRelu', strides=stride_size)
         # Third
-        conv3 = self.bn_conv2d(conv2, filter_size=filter_size, kernel_size=1, padding_type='same', activation_type='linear')
+        conv3 = self.bn_conv2d(conv2, filter_size=filter_size, kernel_size=1, padding_type='same', activation_type='LeakyRelu')
 
         if reduce is True:
             shortcut = self.bn_conv2d(x, filter_size, kernel_size=1, padding_type='same', activation_type='linear', strides=stride_size)
