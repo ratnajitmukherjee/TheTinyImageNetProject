@@ -34,8 +34,9 @@
  " Author: Ratnajit Mukherjee, ratnajitmukherjee@gmail.com
  " Date: October 2018
 """
-from NetworkModel import BuildNetworkModel
-from InceptionV4NetworkModel import InceptionV4
+# from NetworkModel import BuildNetworkModel
+# from InceptionV4NetworkModel import InceptionV4
+from ResidualNetworkModel import ResNet
 from BasicPreprocessor import BasicPreprocessing
 from MeanPreprocessor import MeanPreprocessing
 from ImagetoArrayPreprocessor import ImagetoArrayPreprocessor
@@ -73,11 +74,11 @@ class TrainTinyImageNet:
     def lr_schedule(self, epoch):
         lr_rate = 0.001
         if epoch > 50:
-            lr_rate = 0.0005
+            lr_rate = 5e-4
         elif epoch > 75:
-            lr_rate = 0.0001
+            lr_rate = 2e-4
         elif epoch > 100:
-            lr_rate = 0.00001
+            lr_rate = 1e-4
         return lr_rate
 
     def train_tinyimagenet(self, input_size, num_classes, pretrained_model, new_model_name, new_lr, num_epochs):
@@ -132,8 +133,16 @@ class TrainTinyImageNet:
             """
             Inception V4 model
             """
-            inceptionNet = InceptionV4()
-            model = inceptionNet.inceptionv4_custom(input_size=input_size, num_classes=num_classes)
+            # inceptionNet = InceptionV4()
+            # model = inceptionNet.inceptionv4_custom(input_size=input_size, num_classes=num_classes)
+
+            """
+            Residual Network
+            """
+            stage_list = (3, 4, 6)
+            filter_list = (64, 128, 256, 512)
+            resnet = ResNet()
+            model = resnet.resnet_build(input_shape=input_size, num_classes=num_classes, filter_list=filter_list, stage_list=stage_list)
 
             myOpt = Adam(lr=0.001, amsgrad=True)
             model.compile(loss='categorical_crossentropy', optimizer=myOpt, metrics=['accuracy'])
@@ -156,7 +165,8 @@ class TrainTinyImageNet:
 
         tiny_imagenet_callbacks = [EarlyStopping(monitor='val_acc', patience=20, mode='auto'),
                                    ModelCheckpoint(tiny_imagenet_checkpoints, monitor='val_acc', mode='auto', period=2),
-                                   ReduceLROnPlateau(monitor='val_acc', factor=0.5, patience=8, min_lr=1e-5)]
+                                   ReduceLROnPlateau(monitor='val_acc', factor=0.5, patience=8, min_lr=1e-5),
+                                   LearningRateScheduler(self.lr_schedule)]
 
         tiny_imagenet_train = model.fit_generator(trainGen.generator(), trainGen.numImages//64, epochs=num_epochs,
                                                   verbose=True, validation_data=valGen.generator(),
@@ -181,10 +191,10 @@ if __name__ == '__main__':
     trainTinyImageNet = TrainTinyImageNet(root_path=root_path)
     input_size = (64, 64, 3)
     num_classes = 200
-    num_epochs = 10
-    pretrained_model_name = 'TinyImageNet_InceptionV4_fn2.hdf5'
-    new_model_name = 'TinyImageNet_InceptionV4_fn3.hdf5'
-    new_lr = 0.00002
+    num_epochs = 120
+    pretrained_model_name = None
+    new_model_name = 'TinyImageNet_ResNet_baseline.hdf5'
+    new_lr = None
     trainTinyImageNet.train_tinyimagenet(input_size=input_size, num_classes=num_classes,
                                          pretrained_model=pretrained_model_name,
                                          new_model_name=new_model_name, new_lr=new_lr,
