@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="34cdc33d-9a33-46ea-b159-7fa65e5e41b5" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/TestNetwork.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ResidualNetworkModel.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -16,6 +16,7 @@
     <SUITE FILE_PATH="coverage/TheTinyImageNetProject$TrainNetwork.coverage" NAME="TrainNetwork Coverage Results" MODIFIED="1540227233255" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/TheTinyImageNetProject$NetworkModel.coverage" NAME="NetworkModel Coverage Results" MODIFIED="1539442138034" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/TheTinyImageNetProject$TestNetwork.coverage" NAME="TestNetwork Coverage Results" MODIFIED="1540234621613" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/TheTinyImageNetProject$ResidualNetworkModel.coverage" NAME="ResidualNetworkModel Coverage Results" MODIFIED="1540235442918" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/TheTinyImageNetProject$BuildTinyImageNetDataset.coverage" NAME="BuildTinyImageNetDataset Coverage Results" MODIFIED="1539269207348" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="FileEditorManager">
@@ -23,8 +24,8 @@
       <file leaf-file-name="InceptionV4NetworkModel.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/InceptionV4NetworkModel.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="295">
-              <caret line="35" column="3" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="35" selection-end-column="3" />
+            <state relative-caret-position="249">
+              <caret line="164" column="22" lean-forward="true" selection-start-line="164" selection-start-column="22" selection-end-line="164" selection-end-column="22" />
               <folding>
                 <element signature="e#1921#2030#0" expanded="true" />
               </folding>
@@ -32,47 +33,13 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TestNetwork.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/TestNetwork.py">
+      <file leaf-file-name="ResidualNetworkModel.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/ResidualNetworkModel.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2254">
-              <caret line="98" column="14" lean-forward="true" selection-start-line="98" selection-start-column="14" selection-end-line="98" selection-end-column="14" />
+            <state relative-caret-position="640">
+              <caret line="120" column="26" lean-forward="true" selection-start-line="120" selection-start-column="26" selection-end-line="120" selection-end-column="26" />
               <folding>
-                <element signature="e#1932#1967#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="group.py" pinned="false" current-in-tab="false">
-        <entry file="file://C:/Program Files/Python36/Lib/site-packages/h5py/_hl/group.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="496">
-              <caret line="182" column="0" lean-forward="false" selection-start-line="182" selection-start-column="0" selection-end-line="182" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="TrainNetwork.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/TrainNetwork.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="552">
-              <caret line="114" column="40" lean-forward="true" selection-start-line="113" selection-start-column="7" selection-end-line="114" selection-end-column="40" />
-              <folding>
-                <element signature="e#1850#1892#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="BuildTinyImageNetDataset.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/BuildTinyImageNetDataset.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="502">
-              <caret line="103" column="43" lean-forward="false" selection-start-line="103" selection-start-column="43" selection-end-line="103" selection-end-column="43" />
-              <folding>
-                <element signature="e#1850#1859#0" expanded="true" />
+                <element signature="e#1959#2068#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -109,6 +76,8 @@
         <option value="$PROJECT_DIR$/InceptionV4NetworkModel.py" />
         <option value="$PROJECT_DIR$/TrainNetwork.py" />
         <option value="$PROJECT_DIR$/TestNetwork.py" />
+        <option value="$PROJECT_DIR$/ResNet.py" />
+        <option value="$PROJECT_DIR$/ResidualNetworkModel.py" />
       </list>
     </option>
   </component>
@@ -169,7 +138,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.TestNetwork">
+  <component name="RunManager" selected="Python.ResidualNetworkModel">
     <configuration name="BuildTinyImageNetDataset" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -202,6 +171,24 @@
       <module name="TheTinyImageNetProject" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/NetworkModel.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+    </configuration>
+    <configuration name="ResidualNetworkModel" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="TheTinyImageNetProject" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/ResidualNetworkModel.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -242,18 +229,20 @@
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
     </configuration>
-    <list size="4">
+    <list size="5">
       <item index="0" class="java.lang.String" itemvalue="Python.BuildTinyImageNetDataset" />
       <item index="1" class="java.lang.String" itemvalue="Python.NetworkModel" />
       <item index="2" class="java.lang.String" itemvalue="Python.TrainNetwork" />
       <item index="3" class="java.lang.String" itemvalue="Python.TestNetwork" />
+      <item index="4" class="java.lang.String" itemvalue="Python.ResidualNetworkModel" />
     </list>
     <recent_temporary>
-      <list size="4">
-        <item index="0" class="java.lang.String" itemvalue="Python.TestNetwork" />
-        <item index="1" class="java.lang.String" itemvalue="Python.TrainNetwork" />
-        <item index="2" class="java.lang.String" itemvalue="Python.NetworkModel" />
-        <item index="3" class="java.lang.String" itemvalue="Python.BuildTinyImageNetDataset" />
+      <list size="5">
+        <item index="0" class="java.lang.String" itemvalue="Python.ResidualNetworkModel" />
+        <item index="1" class="java.lang.String" itemvalue="Python.TestNetwork" />
+        <item index="2" class="java.lang.String" itemvalue="Python.TrainNetwork" />
+        <item index="3" class="java.lang.String" itemvalue="Python.NetworkModel" />
+        <item index="4" class="java.lang.String" itemvalue="Python.BuildTinyImageNetDataset" />
       </list>
     </recent_temporary>
   </component>
@@ -408,7 +397,14 @@
       <option name="project" value="LOCAL" />
       <updated>1540230986451</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="Added Model evaluation script with ranked accuracy. &#10; &#10;Signed-off-by: Ratnajit Mukherjee &lt;ratnajitmukherjee@gmail.com&gt;">
+      <created>1540234894666</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1540234894666</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="TodoView">
@@ -464,7 +460,8 @@
     <MESSAGE value="1) Changed model checkpoint period to two. &#10;2) Restored Early Stopping monitor with patience of 20&#10; &#10;Signed-off-by: Ratnajit Mukherjee &lt;ratnajitmukherjee@gmail.com&gt;" />
     <MESSAGE value="1) Corrected a mistake in the learning rate scheduler&#10; &#10;Signed-off-by: Ratnajit Mukherjee &lt;ratnajitmukherjee@gmail.com&gt;" />
     <MESSAGE value="1) Used ReduceLRonPlateau callback to dynamically change learning rate&#10; &#10;Signed-off-by: Ratnajit Mukherjee &lt;ratnajitmukherjee@gmail.com&gt;" />
-    <option name="LAST_COMMIT_MESSAGE" value="1) Used ReduceLRonPlateau callback to dynamically change learning rate&#10; &#10;Signed-off-by: Ratnajit Mukherjee &lt;ratnajitmukherjee@gmail.com&gt;" />
+    <MESSAGE value="Added Model evaluation script with ranked accuracy. &#10; &#10;Signed-off-by: Ratnajit Mukherjee &lt;ratnajitmukherjee@gmail.com&gt;" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added Model evaluation script with ranked accuracy. &#10; &#10;Signed-off-by: Ratnajit Mukherjee &lt;ratnajitmukherjee@gmail.com&gt;" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -473,23 +470,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/InceptionV4NetworkModel.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="115">
-          <caret line="5" column="2" lean-forward="true" selection-start-line="5" selection-start-column="2" selection-end-line="5" selection-end-column="2" />
-          <folding>
-            <element signature="e#1921#2030#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/NetworkModel.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/MeanPreprocessor.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1219">
@@ -803,12 +783,30 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/InceptionV4NetworkModel.py">
+    <entry file="file://$PROJECT_DIR$/TestNetwork.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="295">
-          <caret line="35" column="3" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="35" selection-end-column="3" />
+        <state relative-caret-position="2254">
+          <caret line="98" column="14" lean-forward="true" selection-start-line="98" selection-start-column="14" selection-end-line="98" selection-end-column="14" />
           <folding>
-            <element signature="e#1921#2030#0" expanded="true" />
+            <element signature="e#1932#1967#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://C:/Program Files/Python36/Lib/site-packages/h5py/_hl/group.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="496">
+          <caret line="182" column="0" lean-forward="false" selection-start-line="182" selection-start-column="0" selection-end-line="182" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TrainNetwork.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="552">
+          <caret line="114" column="40" lean-forward="true" selection-start-line="113" selection-start-column="7" selection-end-line="114" selection-end-column="40" />
+          <folding>
+            <element signature="e#1850#1892#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -823,30 +821,30 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/TrainNetwork.py">
+    <entry file="file://$PROJECT_DIR$/ResNet.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="552">
-          <caret line="114" column="40" lean-forward="true" selection-start-line="113" selection-start-column="7" selection-end-line="114" selection-end-column="40" />
-          <folding>
-            <element signature="e#1850#1892#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://C:/Program Files/Python36/Lib/site-packages/h5py/_hl/group.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="496">
-          <caret line="182" column="0" lean-forward="false" selection-start-line="182" selection-start-column="0" selection-end-line="182" selection-end-column="0" />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/TestNetwork.py">
+    <entry file="file://$PROJECT_DIR$/InceptionV4NetworkModel.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2254">
-          <caret line="98" column="14" lean-forward="true" selection-start-line="98" selection-start-column="14" selection-end-line="98" selection-end-column="14" />
+        <state relative-caret-position="249">
+          <caret line="164" column="22" lean-forward="true" selection-start-line="164" selection-start-column="22" selection-end-line="164" selection-end-column="22" />
           <folding>
-            <element signature="e#1932#1967#0" expanded="true" />
+            <element signature="e#1921#2030#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ResidualNetworkModel.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="640">
+          <caret line="120" column="26" lean-forward="true" selection-start-line="120" selection-start-column="26" selection-end-line="120" selection-end-column="26" />
+          <folding>
+            <element signature="e#1959#2068#0" expanded="true" />
           </folding>
         </state>
       </provider>
