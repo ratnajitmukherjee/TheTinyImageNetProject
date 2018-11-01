@@ -35,13 +35,11 @@
  " Date: October 2018
 """
 # various imports
-from keras.layers import Input, Conv2D, BatchNormalization, MaxPooling2D, Flatten, Dense, Activation, Dropout
+from keras.layers import Input, Conv2D, BatchNormalization, MaxPooling2D, Flatten, Dense, Activation
 from keras.layers import AveragePooling2D, add
 from keras.layers.advanced_activations import LeakyReLU
-from keras.initializers import VarianceScaling
 from keras.regularizers import l2
 from keras.models import Model
-from keras import backend as K
 
 
 class ResNet:
@@ -50,34 +48,43 @@ class ResNet:
 
     def bn_conv2d(self, x, filter_size, kernel_size, padding_type, activation_type, strides=(1, 1)):
         """
-        Batch Normalization and pre-activation followed by a convolution layer
+        Batch Normalization and pre-activation followed by a convolution layer considered as the basic building building
+        block of a bottlenecked Residual Network. The only thing I have changed is to replace the RELU with LeakyRELU
+        activation.
         """
         weight = 1e-4
-        # Batch norm
         x = BatchNormalization(axis=-1, epsilon=1e-5, momentum=0.9)(x)
-        # Pre-activation
         if activation_type == 'LeakyRelu':
             x = LeakyReLU(alpha=0.3)(x)
         else:
             x = Activation(activation_type)(x)
 
-        # Convolution 2D
         x = Conv2D(filters=filter_size, kernel_size=kernel_size, strides=strides, kernel_regularizer=l2(weight),
                    kernel_initializer="he_normal", padding=padding_type, activation='linear', use_bias=False)(x)
         return x
 
     def residual_module(self, x, filter_size, stride_size, reduce=False):
+        """
+        :param x: the previous network
+        :param filter_size: the filter size required to for the preactivated conv block
+        :param stride_size: check whether the block is an identity of reduction block
+        :param reduce: match the shortcut reduction
+        :return: the residual module
+
+        Description: The first preactivated conv block has a kernel size of 1 followed by another conv block which acts
+        as a reduction block when instructed else acts like a normal conv block. This is again followed by a third conv
+        block. Finally, the output is added with the shortcut such as x = f(x) + x. The return value is the final x
+        """
         shortcut = x
-        # First bn_conv2d block
-        conv1 = self.bn_conv2d(x, filter_size=int(filter_size * 0.25), kernel_size=1, padding_type='same', activation_type='LeakyRelu')
-        # Second bn_conv2d block (this block also reduces spatial resolution)
-        conv2 = self.bn_conv2d(conv1, filter_size=int(filter_size * 0.25), kernel_size=3, padding_type='same', activation_type='LeakyRelu', strides=stride_size)
-        # Third
-        conv3 = self.bn_conv2d(conv2, filter_size=filter_size, kernel_size=1, padding_type='same', activation_type='LeakyRelu')
-
+        conv1 = self.bn_conv2d(x, filter_size=int(filter_size * 0.25), kernel_size=1, padding_type='same',
+                               activation_type='LeakyRelu')
+        conv2 = self.bn_conv2d(conv1, filter_size=int(filter_size * 0.25), kernel_size=3, padding_type='same',
+                               activation_type='LeakyRelu', strides=stride_size)
+        conv3 = self.bn_conv2d(conv2, filter_size=filter_size, kernel_size=1, padding_type='same',
+                               activation_type='LeakyRelu')
         if reduce is True:
-            shortcut = self.bn_conv2d(x, filter_size, kernel_size=1, padding_type='same', activation_type='linear', strides=stride_size)
-
+            shortcut = self.bn_conv2d(x, filter_size, kernel_size=1, padding_type='same', activation_type='linear',
+                                      strides=stride_size)
         x = add([conv3, shortcut])
 
         return x
