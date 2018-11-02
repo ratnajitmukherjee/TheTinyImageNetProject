@@ -36,7 +36,7 @@
 """
 # various imports
 from keras.layers import Input, Conv2D, BatchNormalization, MaxPooling2D, Flatten, Dense, Activation
-from keras.layers import AveragePooling2D, add
+from keras.layers import AveragePooling2D, add, Dropout
 from keras.layers.advanced_activations import LeakyReLU
 from keras.regularizers import l2
 from keras.models import Model
@@ -52,7 +52,7 @@ class ResNet:
         block of a bottlenecked Residual Network. The only thing I have changed is to replace the RELU with LeakyRELU
         activation.
         """
-        weight = 1e-4
+        weight = 5e-4
         x = BatchNormalization(axis=-1, epsilon=1e-5, momentum=0.9)(x)
         if activation_type == 'LeakyRelu':
             x = LeakyReLU(alpha=0.3)(x)
@@ -115,6 +115,7 @@ class ResNet:
         x = BatchNormalization(axis=-1, epsilon=1e-5, momentum=0.9)(x)
         x = LeakyReLU(alpha=0.3)(x)
         x = AveragePooling2D(pool_size=(8, 8))(x)
+        x = Dropout(0.3)(x)
         x = Flatten()(x)
         x = Dense(units=num_classes, activation='softmax')(x)
 

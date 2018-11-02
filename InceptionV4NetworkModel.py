@@ -187,7 +187,7 @@ class InceptionV4:
 
         # include top
         net = AveragePooling2D(pool_size=(8, 8), padding='valid')(net)
-        net = Dropout(0.5)(net)
+        net = Dropout(0.2)(net)
         net = Flatten()(net)
         net = Dense(units=num_classes, activation='softmax')(net)
 
