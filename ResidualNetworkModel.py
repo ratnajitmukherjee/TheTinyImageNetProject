@@ -125,7 +125,7 @@ class ResNet:
 if __name__ == '__main__':
     input_shape = (64, 64, 3)
     output_classes = 200
-    stage_list = (4, 5, 6)
+    stage_list = (3, 4, 5)
     filter_list = (64, 128, 256, 512)
     resnet = ResNet()
     model = resnet.resnet_build(input_shape, output_classes, stage_list=stage_list, filter_list=filter_list)
