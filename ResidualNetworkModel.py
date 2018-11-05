@@ -36,8 +36,8 @@
 """
 # various imports
 from keras.layers import Input, Conv2D, BatchNormalization, MaxPooling2D, Flatten, Dense, Activation
-from keras.layers import AveragePooling2D, add, Dropout
 from keras.layers.advanced_activations import LeakyReLU
+from keras.layers import AveragePooling2D, add
 from keras.regularizers import l2
 from keras.models import Model
 
@@ -52,15 +52,15 @@ class ResNet:
         block of a bottlenecked Residual Network. The only thing I have changed is to replace the RELU with LeakyRELU
         activation.
         """
-        weight = 5e-4
-        x = BatchNormalization(axis=-1, epsilon=1e-5, momentum=0.9)(x)
+        weight = 1e-4
+        x = BatchNormalization(axis=-1)(x)
         if activation_type == 'LeakyRelu':
             x = LeakyReLU(alpha=0.3)(x)
         else:
             x = Activation(activation_type)(x)
 
         x = Conv2D(filters=filter_size, kernel_size=kernel_size, strides=strides, kernel_regularizer=l2(weight),
-                   kernel_initializer="he_normal", padding=padding_type, activation='linear', use_bias=False)(x)
+                   kernel_initializer='he_normal', padding=padding_type, activation='linear', use_bias=False)(x)
         return x
 
     def residual_module(self, x, filter_size, stride_size, reduce=False):
@@ -92,10 +92,10 @@ class ResNet:
     def resnet_build(self, input_shape, num_classes, stage_list, filter_list):
         input_layer = Input(input_shape)
         # First convolution block to capture larger maps
-        x = Conv2D(filters=filter_list[0], kernel_size=(5, 5), kernel_initializer="he_normal",
+        x = Conv2D(filters=filter_list[0], kernel_size=(3, 3), kernel_initializer="he_normal",
                    kernel_regularizer=l2(1e-4), padding='same', activation='linear')(input_layer)
         x = LeakyReLU(alpha=0.3)(x)
-        x = BatchNormalization(axis=-1, epsilon=1e-5, momentum=0.9)(x)
+        x = BatchNormalization(axis=-1)(x)
         x = MaxPooling2D(pool_size=(3, 3), strides=(2, 2), padding='same')(x)
 
         # loop over the number of stages and the number of filter to stack the residual modules
@@ -115,7 +115,6 @@ class ResNet:
         x = BatchNormalization(axis=-1, epsilon=1e-5, momentum=0.9)(x)
         x = LeakyReLU(alpha=0.3)(x)
         x = AveragePooling2D(pool_size=(8, 8))(x)
-        x = Dropout(0.3)(x)
         x = Flatten()(x)
         x = Dense(units=num_classes, activation='softmax')(x)
 
@@ -126,7 +125,7 @@ class ResNet:
 if __name__ == '__main__':
     input_shape = (64, 64, 3)
     output_classes = 200
-    stage_list = (3, 4, 6)
+    stage_list = (4, 5, 6)
     filter_list = (64, 128, 256, 512)
     resnet = ResNet()
     model = resnet.resnet_build(input_shape, output_classes, stage_list=stage_list, filter_list=filter_list)

@@ -102,4 +102,4 @@ class EvaluateTinyImageNet:
 if __name__ == '__main__':
     root_path = input('Please enter the root path: ')
     evTimgNet = EvaluateTinyImageNet(root_path=root_path)
-    evTimgNet.evaluate_results('TinyImageNet_Baseline_Acc-0.33.hdf5', 200)
+    evTimgNet.evaluate_results('TinyImageNet_InceptionV4_Acc-0.46.hdf5', 200)

@@ -42,7 +42,7 @@ from MeanPreprocessor import MeanPreprocessing
 from ImagetoArrayPreprocessor import ImagetoArrayPreprocessor
 from hdf5datasetgenerator import HDF5DatasetGenerator
 from BuildTinyImageNetDataset import BuildTinyImageNetDataset
-from keras.callbacks import EarlyStopping, LearningRateScheduler, ModelCheckpoint, ReduceLROnPlateau
+from keras.callbacks import EarlyStopping, LearningRateScheduler, ModelCheckpoint
 from keras.preprocessing.image import ImageDataGenerator
 from keras.optimizers import Adam
 from keras.models import load_model
@@ -59,26 +59,27 @@ class TrainTinyImageNet:
 
     def model_plot_history(self, train):
         plt.style.use('seaborn-darkgrid')
-        plt.semilogy(train.history['acc'], 'r+', linestyle='-', label='Training accuracy')
-        plt.semilogy(train.history['loss'], 'b+', linestyle='-.', label='Training loss')
+        plt.plot(train.history['acc'], 'r+', linestyle='-', label='Training accuracy')
+        plt.plot(train.history['loss'], 'b+', linestyle='-.', label='Training loss')
 
-        plt.semilogy(train.history['val_acc'], 'rx', linestyle='-', label='Validation accuracy')
-        plt.semilogy(train.history['val_loss'], 'bx', linestyle='-.', label='Validation loss')
+        plt.plot(train.history['val_acc'], 'rx', linestyle='-', label='Validation accuracy')
+        plt.plot(train.history['val_loss'], 'bx', linestyle='-.', label='Validation loss')
         plt.minorticks_on()
-        plt.ylabel("Model Training History")
+        plt.ylabel("Model Training History - Loss/Accuracy")
         plt.xlabel("Epochs")
         plt.legend(loc='upper right')
+        plt.title('Residual Network Model Training History - TinyImageNet')
         plt.show()
         return
 
     def lr_schedule(self, epoch):
         lr_rate = 0.001
-        if epoch > 50:
+        if epoch > 65:
             lr_rate = 5e-4
-        elif epoch > 75:
-            lr_rate = 2e-4
-        elif epoch > 100:
+        elif epoch > 95:
             lr_rate = 1e-4
+        elif epoch > 115:
+            lr_rate = 1e-5
         return lr_rate
 
     def train_tinyimagenet(self, input_size, num_classes, pretrained_model, new_model_name, new_lr, num_epochs):
@@ -139,10 +140,11 @@ class TrainTinyImageNet:
             """
             Residual Network
             """
-            stage_list = (3, 4, 6)
+            stage_list = (3, 5, 6)
             filter_list = (64, 128, 256, 512)
             resnet = ResNet()
-            model = resnet.resnet_build(input_shape=input_size, num_classes=num_classes, filter_list=filter_list, stage_list=stage_list)
+            model = resnet.resnet_build(input_shape=input_size, num_classes=num_classes, filter_list=filter_list,
+                                        stage_list=stage_list)
 
             myOpt = Adam(lr=0.001, amsgrad=True)
             model.compile(loss='categorical_crossentropy', optimizer=myOpt, metrics=['accuracy'])
@@ -190,9 +192,9 @@ if __name__ == '__main__':
     trainTinyImageNet = TrainTinyImageNet(root_path=root_path)
     input_size = (64, 64, 3)
     num_classes = 200
-    num_epochs = 120
+    num_epochs = 125
     pretrained_model_name = None
-    new_model_name = 'TinyImageNet_ResNet_baseline.hdf5'
+    new_model_name = 'TinyImageNet_ResNet_Exp3.hdf5'
     new_lr = None
     trainTinyImageNet.train_tinyimagenet(input_size=input_size, num_classes=num_classes,
                                          pretrained_model=pretrained_model_name,

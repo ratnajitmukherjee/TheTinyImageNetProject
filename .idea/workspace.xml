@@ -3,8 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="34cdc33d-9a33-46ea-b159-7fa65e5e41b5" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/InceptionV4NetworkModel.py" afterPath="$PROJECT_DIR$/InceptionV4NetworkModel.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ResidualNetworkModel.py" afterPath="$PROJECT_DIR$/ResidualNetworkModel.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TestNetwork.py" afterPath="$PROJECT_DIR$/TestNetwork.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TrainNetwork.py" afterPath="$PROJECT_DIR$/TrainNetwork.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -16,8 +17,8 @@
   <component name="CoverageDataManager">
     <SUITE FILE_PATH="coverage/TheTinyImageNetProject$TrainNetwork.coverage" NAME="TrainNetwork Coverage Results" MODIFIED="1540227233255" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/TheTinyImageNetProject$NetworkModel.coverage" NAME="NetworkModel Coverage Results" MODIFIED="1539442138034" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/TheTinyImageNetProject$TestNetwork.coverage" NAME="TestNetwork Coverage Results" MODIFIED="1540234621613" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/TheTinyImageNetProject$ResidualNetworkModel.coverage" NAME="ResidualNetworkModel Coverage Results" MODIFIED="1541091800179" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/TheTinyImageNetProject$TestNetwork.coverage" NAME="TestNetwork Coverage Results" MODIFIED="1541272353385" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/TheTinyImageNetProject$BuildTinyImageNetDataset.coverage" NAME="BuildTinyImageNetDataset Coverage Results" MODIFIED="1539269207348" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="FileEditorManager">
@@ -25,31 +26,43 @@
       <file leaf-file-name="TrainNetwork.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/TrainNetwork.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-563">
-              <caret line="80" column="26" lean-forward="true" selection-start-line="80" selection-start-column="26" selection-end-line="80" selection-end-column="26" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ResidualNetworkModel.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ResidualNetworkModel.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="771">
-              <caret line="117" column="27" lean-forward="true" selection-start-line="117" selection-start-column="27" selection-end-line="117" selection-end-column="27" />
+            <state relative-caret-position="-1541">
+              <caret line="62" column="43" lean-forward="false" selection-start-line="62" selection-start-column="43" selection-end-line="62" selection-end-column="43" />
               <folding>
-                <element signature="e#1959#2059#0" expanded="true" />
+                <element signature="e#1945#1984#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="InceptionV4NetworkModel.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="InceptionV4NetworkModel.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/InceptionV4NetworkModel.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="955">
-              <caret line="189" column="25" lean-forward="false" selection-start-line="189" selection-start-column="25" selection-end-line="189" selection-end-column="25" />
+            <state relative-caret-position="164">
+              <caret line="40" column="0" lean-forward="false" selection-start-line="40" selection-start-column="0" selection-end-line="40" selection-end-column="46" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="TestNetwork.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/TestNetwork.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="437">
+              <caret line="19" column="2" lean-forward="false" selection-start-line="19" selection-start-column="2" selection-end-line="19" selection-end-column="2" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ResidualNetworkModel.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/ResidualNetworkModel.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="2921">
+              <caret line="127" column="26" lean-forward="true" selection-start-line="127" selection-start-column="26" selection-end-line="127" selection-end-column="26" />
+              <folding>
+                <element signature="e#1959#2059#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -82,11 +95,12 @@
         <option value="$PROJECT_DIR$/ImagetoArrayPreprocessor.py" />
         <option value="$PROJECT_DIR$/MeanPreprocessor.py" />
         <option value="$PROJECT_DIR$/NetworkModel.py" />
-        <option value="$PROJECT_DIR$/TestNetwork.py" />
         <option value="$PROJECT_DIR$/ResNet.py" />
+        <option value="$PROJECT_DIR$/InceptionV4NetworkModel.py" />
+        <option value="$PROJECT_DIR$/PredictImages.py" />
+        <option value="$PROJECT_DIR$/TestNetwork.py" />
         <option value="$PROJECT_DIR$/TrainNetwork.py" />
         <option value="$PROJECT_DIR$/ResidualNetworkModel.py" />
-        <option value="$PROJECT_DIR$/InceptionV4NetworkModel.py" />
       </list>
     </option>
   </component>
@@ -116,8 +130,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
       <pane id="Scope" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -147,7 +161,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.ResidualNetworkModel">
+  <component name="RunManager" selected="Python.TestNetwork">
     <configuration name="BuildTinyImageNetDataset" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -247,8 +261,8 @@
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python.ResidualNetworkModel" />
-        <item index="1" class="java.lang.String" itemvalue="Python.TestNetwork" />
+        <item index="0" class="java.lang.String" itemvalue="Python.TestNetwork" />
+        <item index="1" class="java.lang.String" itemvalue="Python.ResidualNetworkModel" />
         <item index="2" class="java.lang.String" itemvalue="Python.TrainNetwork" />
         <item index="3" class="java.lang.String" itemvalue="Python.NetworkModel" />
         <item index="4" class="java.lang.String" itemvalue="Python.BuildTinyImageNetDataset" />
@@ -448,7 +462,14 @@
       <option name="project" value="LOCAL" />
       <updated>1541093635427</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00027" summary="Changed Dropout values for inception and added regularization for ResNet&#10;Signed-off-by: Ratnajit Mukherjee &lt;ratnajitmukherjee@gmail.com&gt;">
+      <created>1541163785819</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1541163785819</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="TodoView">
@@ -509,7 +530,8 @@
     <MESSAGE value="Add custom Deep Residual Network for TinyImageNetProject &#10; &#10;Signed-off-by: Ratnajit Mukherjee &lt;ratnajitmukherjee@gmail.com&gt;" />
     <MESSAGE value="Fixed ResNet pre-activation bug. &#10;Signed-off-by: Ratnajit Mukherjee &lt;ratnajitmukherjee@gmail.com&gt;" />
     <MESSAGE value="Cleaned up the ResNet.py file.&#10;Signed-off-by: Ratnajit Mukherjee &lt;ratnajitmukherjee@gmail.com&gt;" />
-    <option name="LAST_COMMIT_MESSAGE" value="Cleaned up the ResNet.py file.&#10;Signed-off-by: Ratnajit Mukherjee &lt;ratnajitmukherjee@gmail.com&gt;" />
+    <MESSAGE value="Changed Dropout values for inception and added regularization for ResNet&#10;Signed-off-by: Ratnajit Mukherjee &lt;ratnajitmukherjee@gmail.com&gt;" />
+    <option name="LAST_COMMIT_MESSAGE" value="Changed Dropout values for inception and added regularization for ResNet&#10;Signed-off-by: Ratnajit Mukherjee &lt;ratnajitmukherjee@gmail.com&gt;" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -518,19 +540,13 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/ImagetoArrayPreprocessor.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1127">
-          <caret line="49" column="63" lean-forward="false" selection-start-line="49" selection-start-column="63" selection-end-line="49" selection-end-column="63" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/TrainNetwork.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3174">
           <caret line="150" column="18" lean-forward="false" selection-start-line="150" selection-start-column="18" selection-end-line="150" selection-end-column="18" />
-          <folding />
+          <folding>
+            <element signature="e#1945#1984#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -577,7 +593,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3174">
           <caret line="150" column="18" lean-forward="false" selection-start-line="150" selection-start-column="18" selection-end-line="150" selection-end-column="18" />
-          <folding />
+          <folding>
+            <element signature="e#1945#1984#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -616,7 +634,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3588">
           <caret line="168" column="14" lean-forward="false" selection-start-line="168" selection-start-column="14" selection-end-line="168" selection-end-column="14" />
-          <folding />
+          <folding>
+            <element signature="e#1945#1984#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -632,7 +652,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2438">
           <caret line="116" column="44" lean-forward="true" selection-start-line="116" selection-start-column="44" selection-end-line="116" selection-end-column="44" />
-          <folding />
+          <folding>
+            <element signature="e#1945#1984#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -648,7 +670,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1357">
           <caret line="68" column="23" lean-forward="true" selection-start-line="68" selection-start-column="23" selection-end-line="68" selection-end-column="23" />
-          <folding />
+          <folding>
+            <element signature="e#1945#1984#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -664,7 +688,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1150">
           <caret line="50" column="57" lean-forward="true" selection-start-line="50" selection-start-column="57" selection-end-line="50" selection-end-column="57" />
-          <folding />
+          <folding>
+            <element signature="e#1945#1984#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -690,7 +716,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1817">
           <caret line="89" column="64" lean-forward="true" selection-start-line="89" selection-start-column="64" selection-end-line="89" selection-end-column="64" />
-          <folding />
+          <folding>
+            <element signature="e#1945#1984#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -739,7 +767,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1242">
           <caret line="58" column="0" lean-forward="false" selection-start-line="58" selection-start-column="0" selection-end-line="58" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="e#1945#1984#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -828,16 +858,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/TestNetwork.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="874">
-          <caret line="45" column="0" lean-forward="false" selection-start-line="45" selection-start-column="0" selection-end-line="45" selection-end-column="0" />
-          <folding>
-            <element signature="e#1932#1967#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/BuildTinyImageNetDataset.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1162">
@@ -848,29 +868,40 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/PredictImages.py" />
     <entry file="file://$PROJECT_DIR$/TrainNetwork.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-563">
-          <caret line="80" column="26" lean-forward="true" selection-start-line="80" selection-start-column="26" selection-end-line="80" selection-end-column="26" />
+        <state relative-caret-position="-1541">
+          <caret line="62" column="43" lean-forward="false" selection-start-line="62" selection-start-column="43" selection-end-line="62" selection-end-column="43" />
+          <folding>
+            <element signature="e#1945#1984#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TestNetwork.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="437">
+          <caret line="19" column="2" lean-forward="false" selection-start-line="19" selection-start-column="2" selection-end-line="19" selection-end-column="2" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/InceptionV4NetworkModel.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="164">
+          <caret line="40" column="0" lean-forward="false" selection-start-line="40" selection-start-column="0" selection-end-line="40" selection-end-column="46" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/ResidualNetworkModel.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="771">
-          <caret line="117" column="27" lean-forward="true" selection-start-line="117" selection-start-column="27" selection-end-line="117" selection-end-column="27" />
+        <state relative-caret-position="2921">
+          <caret line="127" column="26" lean-forward="true" selection-start-line="127" selection-start-column="26" selection-end-line="127" selection-end-column="26" />
           <folding>
             <element signature="e#1959#2059#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/InceptionV4NetworkModel.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="955">
-          <caret line="189" column="25" lean-forward="false" selection-start-line="189" selection-start-column="25" selection-end-line="189" selection-end-column="25" />
-          <folding />
         </state>
       </provider>
     </entry>
