@@ -149,23 +149,23 @@ class TrainTinyImageNet:
             myOpt = Adam(lr=0.001, amsgrad=True)
             model.compile(loss='categorical_crossentropy', optimizer=myOpt, metrics=['accuracy'])
         else:
-            model = load_model(os.path.join(self.root_path, pretrained_model))
+            preTr_model_path = os.path.join(self.root_path, pretrained_model)
+            print('[INFO] Loading pretrained model: {0}'.format(preTr_model_path))
+            model = load_model(preTr_model_path)
             if new_lr is None:
                 old_learning_rate = K.get_value(model.optimizer.lr)
-                new_lr = old_learning_rate / 10
+                new_lr = 1e-4
                 K.set_value(model.optimizer.lr, new_lr)
             else:
                 old_learning_rate = K.get_value(model.optimizer.lr)
                 K.set_value(model.optimizer.lr, new_lr)
-                print("\n Changing learning rate from {0} to {1}".format(old_learning_rate, new_lr))
 
+            print('[INFO] Changing learning rate from {0} to {1}'.format(old_learning_rate, new_lr))
 
-        """
-        building checkpoint path and training
-        """
+        # building checkpoint path and training
         tiny_imagenet_checkpoints = os.path.join(root_path, 'checkpoint_{epoch:02d}-{val_acc:.2f}.hdf5')
 
-        tiny_imagenet_callbacks = [EarlyStopping(monitor='val_acc', patience=20, mode='auto'),
+        tiny_imagenet_callbacks = [EarlyStopping(monitor='val_acc', patience=15, mode='auto'),
                                    ModelCheckpoint(tiny_imagenet_checkpoints, monitor='val_acc', mode='auto', period=2),
                                    LearningRateScheduler(self.lr_schedule)]
 
@@ -192,9 +192,9 @@ if __name__ == '__main__':
     trainTinyImageNet = TrainTinyImageNet(root_path=root_path)
     input_size = (64, 64, 3)
     num_classes = 200
-    num_epochs = 125
-    pretrained_model_name = None
-    new_model_name = 'TinyImageNet_ResNet_Exp3.hdf5'
+    num_epochs = 20
+    pretrained_model_name = 'TinyImageNet_ResNet_baseline_Acc_0.44.hdf5'
+    new_model_name = 'TinyImageNet_ResNet_fn1.hdf5'
     new_lr = None
     trainTinyImageNet.train_tinyimagenet(input_size=input_size, num_classes=num_classes,
                                          pretrained_model=pretrained_model_name,
