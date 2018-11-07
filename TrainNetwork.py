@@ -34,9 +34,9 @@
  " Author: Ratnajit Mukherjee, ratnajitmukherjee@gmail.com
  " Date: October 2018
 """
-# from NetworkModel import BuildNetworkModel
+from NetworkModel import BuildNetworkModel
 # from InceptionV4NetworkModel import InceptionV4
-from ResidualNetworkModel import ResNet
+#from ResidualNetworkModel import ResNet
 from BasicPreprocessor import BasicPreprocessing
 from MeanPreprocessor import MeanPreprocessing
 from ImagetoArrayPreprocessor import ImagetoArrayPreprocessor
@@ -50,6 +50,17 @@ import keras.backend as K
 import matplotlib.pyplot as plt
 import json
 import os
+
+
+def lr_schedule(epoch):
+    lr_rate = 0.001
+    if epoch > 65:
+        lr_rate = 5e-4
+    elif epoch > 95:
+        lr_rate = 1e-4
+    elif epoch > 115:
+        lr_rate = 1e-5
+    return lr_rate
 
 
 class TrainTinyImageNet:
@@ -71,16 +82,6 @@ class TrainTinyImageNet:
         plt.title('Residual Network Model Training History - TinyImageNet')
         plt.show()
         return
-
-    def lr_schedule(self, epoch):
-        lr_rate = 0.001
-        if epoch > 65:
-            lr_rate = 5e-4
-        elif epoch > 95:
-            lr_rate = 1e-4
-        elif epoch > 115:
-            lr_rate = 1e-5
-        return lr_rate
 
     def train_tinyimagenet(self, input_size, num_classes, pretrained_model, new_model_name, new_lr, num_epochs):
         buildDataSet = BuildTinyImageNetDataset(self.root_path)
@@ -128,8 +129,8 @@ class TrainTinyImageNet:
             """
             Sequential model
             """
-            # buildNetwork = BuildNetworkModel()
-            # model = buildNetwork.buildSequentialModel(inputsize=input_size, num_classes=num_classes)
+            buildNetwork = BuildNetworkModel()
+            model = buildNetwork.buildSequentialModel(inputsize=input_size, num_classes=num_classes)
 
             """
             Inception V4 model
@@ -140,11 +141,11 @@ class TrainTinyImageNet:
             """
             Residual Network
             """
-            stage_list = (3, 5, 6)
-            filter_list = (64, 128, 256, 512)
-            resnet = ResNet()
-            model = resnet.resnet_build(input_shape=input_size, num_classes=num_classes, filter_list=filter_list,
-                                        stage_list=stage_list)
+            # stage_list = (3, 5, 6)
+            # filter_list = (64, 128, 256, 512)
+            # resnet = ResNet()
+            # model = resnet.resnet_build(input_shape=input_size, num_classes=num_classes, filter_list=filter_list,
+            #                             stage_list=stage_list)
 
             myOpt = Adam(lr=0.001, amsgrad=True)
             model.compile(loss='categorical_crossentropy', optimizer=myOpt, metrics=['accuracy'])
@@ -165,9 +166,9 @@ class TrainTinyImageNet:
         # building checkpoint path and training
         tiny_imagenet_checkpoints = os.path.join(root_path, 'checkpoint_{epoch:02d}-{val_acc:.2f}.hdf5')
 
-        tiny_imagenet_callbacks = [EarlyStopping(monitor='val_acc', patience=15, mode='auto'),
+        tiny_imagenet_callbacks = [EarlyStopping(monitor='val_acc', patience=20, mode='auto'),
                                    ModelCheckpoint(tiny_imagenet_checkpoints, monitor='val_acc', mode='auto', period=2),
-                                   LearningRateScheduler(self.lr_schedule)]
+                                   LearningRateScheduler(lr_schedule)]
 
         tiny_imagenet_train = model.fit_generator(trainGen.generator(), trainGen.numImages//64, epochs=num_epochs,
                                                   verbose=True, validation_data=valGen.generator(),
@@ -193,8 +194,8 @@ if __name__ == '__main__':
     input_size = (64, 64, 3)
     num_classes = 200
     num_epochs = 20
-    pretrained_model_name = 'TinyImageNet_ResNet_baseline_Acc_0.44.hdf5'
-    new_model_name = 'TinyImageNet_ResNet_fn1.hdf5'
+    pretrained_model_name = None
+    new_model_name = 'TinyImageNet_Sequential_Baseline.hdf5'
     new_lr = None
     trainTinyImageNet.train_tinyimagenet(input_size=input_size, num_classes=num_classes,
                                          pretrained_model=pretrained_model_name,

@@ -73,31 +73,37 @@ class BuildNetworkModel:
     def buildSequentialModel(self, inputsize, num_classes):
         input_layer = Input((64, 64, 3))
         # First block of conv2d -> Maxpool layers
-        net = self.conv2d_bn(input_layer, filter_size=64, kernel_size=3, padding_type='same', activation_type='LeakyRelu')
-        net = self.conv2d_bn(net, filter_size=64, kernel_size=3, padding_type='same', activation_type='LeakyRelu')
+        net = self.conv2d_bn(input_layer, filter_size=64, kernel_size=5, padding_type='same', activation_type='LeakyRelu')
+        net = self.conv2d_bn(net, filter_size=64, kernel_size=5, padding_type='same', activation_type='LeakyRelu')
         net = self.maxpool_2d(net, pool_size=2, stride_size=2, padding_type='same')
         # second block of conv2d -> MaxPool layers
         net = self.conv2d_bn(net, filter_size=128, kernel_size=3, padding_type='same', activation_type='LeakyRelu')
         net = self.conv2d_bn(net, filter_size=128, kernel_size=3, padding_type='same', activation_type='LeakyRelu')
         net = self.maxpool_2d(net, pool_size=2, stride_size=2, padding_type='same')
+        net = Dropout(0.1)(net)
         # Third block of conv2d -> MaxPool layers
         net = self.conv2d_bn(net, filter_size=256, kernel_size=3, padding_type='same', activation_type='LeakyRelu')
         net = self.conv2d_bn(net, filter_size=256, kernel_size=3, padding_type='same', activation_type='LeakyRelu')
         net = self.conv2d_bn(net, filter_size=256, kernel_size=3, padding_type='same', activation_type='LeakyRelu')
         net = self.maxpool_2d(net, pool_size=2, stride_size=2, padding_type='same')
+        net = Dropout(0.15)(net)
         # Fourth block of conv2d -> MaxPool layers
+        net = self.conv2d_bn(net, filter_size=512, kernel_size=3, padding_type='same', activation_type='LeakyRelu')
         net = self.conv2d_bn(net, filter_size=512, kernel_size=3, padding_type='same', activation_type='LeakyRelu')
         net = self.conv2d_bn(net, filter_size=512, kernel_size=3, padding_type='same', activation_type='LeakyRelu')
         net = self.maxpool_2d(net, pool_size=2, stride_size=2, padding_type='same')
         net = Dropout(0.2)(net)
+        # Fifth block of conv2d -> MaxPool layers
+        net = self.conv2d_bn(net, filter_size=512, kernel_size=3, padding_type='same', activation_type='LeakyRelu')
+        net = self.conv2d_bn(net, filter_size=512, kernel_size=3, padding_type='same', activation_type='LeakyRelu')
+        net = self.conv2d_bn(net, filter_size=512, kernel_size=3, padding_type='same', activation_type='LeakyRelu')
         # Flatten layer
         net = Flatten()(net)
         net = Dense(2048, activation='linear')(net)
         net = LeakyReLU(alpha=0.3)(net)
-        net = Dropout(0.4)(net)
         net = Dense(2048, activation='linear')(net)
         net = LeakyReLU(alpha=0.3)(net)
-        net = Dropout(0.4)(net)
+        net = Dropout(0.5)(net)
         net = Dense(num_classes, activation='softmax')(net) 
 
         # Create the complete model
