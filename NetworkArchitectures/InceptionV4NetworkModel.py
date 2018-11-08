@@ -35,12 +35,12 @@
  " Date: October 2018
 """
 
+from keras.initializers import VarianceScaling
 from keras.layers import Input, Conv2D, BatchNormalization, MaxPooling2D, Flatten, Dense, Activation, Dropout
 from keras.layers import concatenate, AveragePooling2D
 from keras.layers.advanced_activations import LeakyReLU
-from keras.initializers import VarianceScaling
-from keras.regularizers import l2
 from keras.models import Model
+from keras.regularizers import l2
 
 
 class InceptionV4:

@@ -37,16 +37,18 @@
  " Date: November 2018
  " -----------------------------------------------------------------------------
 """
-from sklearn.preprocessing import LabelEncoder
-from ImagetoArrayPreprocessor import ImagetoArrayPreprocessor
-from BasicPreprocessor import BasicPreprocessing
-from MeanPreprocessor import MeanPreprocessing
-from keras.models import load_model
-from tqdm import tqdm
-import numpy as np
 import json
 import os
+
 import cv2
+import numpy as np
+from keras.models import load_model
+from sklearn.preprocessing import LabelEncoder
+from tqdm import tqdm
+
+from Preprocessing.BasicPreprocessor import BasicPreprocessing
+from Preprocessing.ImagetoArrayPreprocessor import ImagetoArrayPreprocessor
+from Preprocessing.MeanPreprocessor import MeanPreprocessing
 
 
 class PredictTinyImageNet:

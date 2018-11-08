@@ -41,10 +41,10 @@
  " Date: July 2018
 """
 
+import h5py
+import numpy as np
 # import the necessary packages
 from keras.utils import np_utils
-import numpy as np
-import h5py
 
 
 class HDF5DatasetGenerator:

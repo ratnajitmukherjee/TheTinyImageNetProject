@@ -34,12 +34,12 @@
  " Author: Ratnajit Mukherjee, ratnajitmukherjee@gmail.com
  " Date: October 2018
 """
+from keras.layers import AveragePooling2D, add
 # various imports
 from keras.layers import Input, Conv2D, BatchNormalization, MaxPooling2D, Flatten, Dense, Activation
 from keras.layers.advanced_activations import LeakyReLU
-from keras.layers import AveragePooling2D, add
-from keras.regularizers import l2
 from keras.models import Model
+from keras.regularizers import l2
 
 
 class ResNet:

@@ -34,14 +34,16 @@
  " Author: Ratnajit Mukherjee, ratnajitmukherjee@gmail.com
  " Date: October 2018
 """
-from keras.models import load_model
-from hdf5datasetgenerator import HDF5DatasetGenerator
-from BasicPreprocessor import BasicPreprocessing
-from ImagetoArrayPreprocessor import ImagetoArrayPreprocessor
-from MeanPreprocessor import MeanPreprocessing
-import numpy as np
 import json
 import os
+
+import numpy as np
+from keras.models import load_model
+
+from Preprocessing.BasicPreprocessor import BasicPreprocessing
+from Preprocessing.ImagetoArrayPreprocessor import ImagetoArrayPreprocessor
+from Preprocessing.MeanPreprocessor import MeanPreprocessing
+from hdf5io.hdf5datasetgenerator import HDF5DatasetGenerator
 
 
 class EvaluateTinyImageNet:
@@ -95,11 +97,10 @@ class EvaluateTinyImageNet:
 
         print('\n Ranked accuracy 1 = {:0.2f}'.format(rank_1*100))
         print('\n Ranked accuracy 5 = {:0.2f}'.format(rank_5 * 100))
-
         return
 
 
 if __name__ == '__main__':
     root_path = input('Please enter the root path: ')
     evTimgNet = EvaluateTinyImageNet(root_path=root_path)
-    evTimgNet.evaluate_results('checkpoint_112-0.44.hdf5', 200)
+    evTimgNet.evaluate_results('TinyImageNet_ResNet_baseline_Acc_0.44.hdf5', 200)

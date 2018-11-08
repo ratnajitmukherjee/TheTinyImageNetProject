@@ -30,25 +30,24 @@
  " ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  " POSSIBILITY OF SUCH DAMAGE.
  " -----------------------------------------------------------------------------
- "
+ " Description: VGG like Sequential Neural Net for image classification
  " Author: Ratnajit Mukherjee, ratnajitmukherjee@gmail.com
  " Date: October 2018
 """
 
+from keras.initializers import VarianceScaling
 from keras.layers import Input, Conv2D, BatchNormalization, MaxPooling2D, Flatten, Dense, Activation, Dropout
 from keras.layers.advanced_activations import LeakyReLU
-from keras.layers import Lambda, concatenate, AveragePooling2D, Add
 from keras.models import Model
 from keras.regularizers import l2
-from keras.initializers import VarianceScaling
 
 
-class BuildNetworkModel:
+class VGGNet:
     def __init__(self):
         print("\n Loading Network Model...")
 
-    # Define the convolution layer
     def conv2d_bn(self, x, filter_size, kernel_size, padding_type, activation_type, strides=(1, 1)):
+        # Define the convolution convolution2d ->Activation->BatchNormalization block
         weight = 5e-4
         x = Conv2D(filters=filter_size, kernel_size=kernel_size, strides=strides, kernel_regularizer=l2(weight),
                    kernel_initializer=VarianceScaling(scale=2.0, mode='fan_in', distribution='normal', seed=None),
@@ -59,9 +58,9 @@ class BuildNetworkModel:
             x = Activation(activation_type)(x)
         x = BatchNormalization(axis=-1)(x)
         return x
-    
-    # Define the Maxpool Layers
+
     def maxpool_2d(self, x, pool_size, stride_size, padding_type):
+        # Define the Maxpool block
         if stride_size is None:
             stride_size = pool_size
         x = MaxPooling2D(pool_size=(pool_size, pool_size), strides=(stride_size, stride_size), padding=padding_type)(x)
@@ -71,12 +70,14 @@ class BuildNetworkModel:
     Build a VGG like sequential network
     """
     def buildSequentialModel(self, inputsize, num_classes):
-        input_layer = Input((64, 64, 3))
+        input_layer = Input(inputsize)
         # First block of conv2d -> Maxpool layers
-        net = self.conv2d_bn(input_layer, filter_size=64, kernel_size=5, padding_type='same', activation_type='LeakyRelu')
+        net = self.conv2d_bn(input_layer, filter_size=64, kernel_size=5, padding_type='same',
+                             activation_type='LeakyRelu')
         net = self.conv2d_bn(net, filter_size=64, kernel_size=5, padding_type='same', activation_type='LeakyRelu')
         net = self.maxpool_2d(net, pool_size=2, stride_size=2, padding_type='same')
         # second block of conv2d -> MaxPool layers
+        net = self.conv2d_bn(net, filter_size=128, kernel_size=3, padding_type='same', activation_type='LeakyRelu')
         net = self.conv2d_bn(net, filter_size=128, kernel_size=3, padding_type='same', activation_type='LeakyRelu')
         net = self.conv2d_bn(net, filter_size=128, kernel_size=3, padding_type='same', activation_type='LeakyRelu')
         net = self.maxpool_2d(net, pool_size=2, stride_size=2, padding_type='same')
@@ -93,38 +94,27 @@ class BuildNetworkModel:
         net = self.conv2d_bn(net, filter_size=512, kernel_size=3, padding_type='same', activation_type='LeakyRelu')
         net = self.maxpool_2d(net, pool_size=2, stride_size=2, padding_type='same')
         net = Dropout(0.2)(net)
-        # Fifth block of conv2d -> MaxPool layers
-        net = self.conv2d_bn(net, filter_size=512, kernel_size=3, padding_type='same', activation_type='LeakyRelu')
-        net = self.conv2d_bn(net, filter_size=512, kernel_size=3, padding_type='same', activation_type='LeakyRelu')
-        net = self.conv2d_bn(net, filter_size=512, kernel_size=3, padding_type='same', activation_type='LeakyRelu')
         # Flatten layer
         net = Flatten()(net)
         net = Dense(2048, activation='linear')(net)
         net = LeakyReLU(alpha=0.3)(net)
         net = Dense(2048, activation='linear')(net)
         net = LeakyReLU(alpha=0.3)(net)
-        net = Dropout(0.5)(net)
-        net = Dense(num_classes, activation='softmax')(net) 
+        net = Dropout(0.4)(net)
+        net = Dense(num_classes, activation='softmax')(net)
 
         # Create the complete model
-        model = Model(inputs=input_layer, outputs=net)    
-        return model 
-
-    """
-    Build an Inception v4 type non-sequential network
-    """       
-    # def buildInceptionModel(self, inputsize, num_classes)
+        model = Model(inputs=input_layer, outputs=net)
+        return model
 
 
 if __name__ == '__main__':
-    print('STUD: NETWORK MODEL CLASS. BASELINE MODEL CREATED')
+    print('[INFO] Building a VGG like sequential neural network..')
     # input and output layer parameters
     input_size = (64, 64, 3)
-    num_classes = 200   
+    num_classes = 200
 
     # Calling the network building class
-    buildNetwork = BuildNetworkModel()    
-    seq_model = buildNetwork.buildSequentialModel(input_size, num_classes)    
+    vggnet = VGGNet()
+    seq_model = vggnet.buildSequentialModel(input_size, num_classes)
     seq_model.summary()
-
-

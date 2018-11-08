@@ -34,33 +34,22 @@
  " Author: Ratnajit Mukherjee, ratnajitmukherjee@gmail.com
  " Date: October 2018
 """
-from NetworkModel import BuildNetworkModel
-# from InceptionV4NetworkModel import InceptionV4
-#from ResidualNetworkModel import ResNet
-from BasicPreprocessor import BasicPreprocessing
-from MeanPreprocessor import MeanPreprocessing
-from ImagetoArrayPreprocessor import ImagetoArrayPreprocessor
-from hdf5datasetgenerator import HDF5DatasetGenerator
-from BuildTinyImageNetDataset import BuildTinyImageNetDataset
-from keras.callbacks import EarlyStopping, LearningRateScheduler, ModelCheckpoint
-from keras.preprocessing.image import ImageDataGenerator
-from keras.optimizers import Adam
-from keras.models import load_model
-import keras.backend as K
-import matplotlib.pyplot as plt
 import json
 import os
 
+import keras.backend as K
+import matplotlib.pyplot as plt
+from keras.callbacks import EarlyStopping, LearningRateScheduler, ModelCheckpoint
+from keras.models import load_model
+from keras.optimizers import SGD
+from keras.preprocessing.image import ImageDataGenerator
 
-def lr_schedule(epoch):
-    lr_rate = 0.001
-    if epoch > 65:
-        lr_rate = 5e-4
-    elif epoch > 95:
-        lr_rate = 1e-4
-    elif epoch > 115:
-        lr_rate = 1e-5
-    return lr_rate
+from BuildTinyImageNetDataset import BuildTinyImageNetDataset
+from NetworkArchitectures.ResidualNetworkModel import ResNet
+from Preprocessing.BasicPreprocessor import BasicPreprocessing
+from Preprocessing.ImagetoArrayPreprocessor import ImagetoArrayPreprocessor
+from Preprocessing.MeanPreprocessor import MeanPreprocessing
+from hdf5io.hdf5datasetgenerator import HDF5DatasetGenerator
 
 
 class TrainTinyImageNet:
@@ -82,6 +71,11 @@ class TrainTinyImageNet:
         plt.title('Residual Network Model Training History - TinyImageNet')
         plt.show()
         return
+
+    def poly_decay(self, epoch):
+        # Experimental polynomial decay function
+        alpha = 1e-5 * (1 - (epoch / float(20))) ** 1.0
+        return alpha
 
     def train_tinyimagenet(self, input_size, num_classes, pretrained_model, new_model_name, new_lr, num_epochs):
         buildDataSet = BuildTinyImageNetDataset(self.root_path)
@@ -109,8 +103,8 @@ class TrainTinyImageNet:
         """
         data-augmentation and generating minibatches for training and validation
         """
-        train_data_aug = ImageDataGenerator(rotation_range=20, zoom_range=0.2, width_shift_range=0.2,
-                                            height_shift_range=0.2, shear_range=0.1, horizontal_flip=True,
+        train_data_aug = ImageDataGenerator(rotation_range=20, zoom_range=0.2, width_shift_range=0.1,
+                                            height_shift_range=0.1, horizontal_flip=True,
                                             fill_mode='nearest')
 
         bp = BasicPreprocessing(input_size[0], input_size[1])
@@ -126,36 +120,36 @@ class TrainTinyImageNet:
         load model and compile with custom optimization flags if required
         """
         if pretrained_model is None:
-            """
-            Sequential model
-            """
-            buildNetwork = BuildNetworkModel()
-            model = buildNetwork.buildSequentialModel(inputsize=input_size, num_classes=num_classes)
+            # Uncomment the next 2 lines to use the Sequential Network
+            # buildNetwork = BuildNetworkModel()
+            # model = buildNetwork.buildSequentialModel(inputsize=input_size, num_classes=num_classes)
 
-            """
-            Inception V4 model
-            """
+            # Uncomment the next 2 lines to use the Inception V4 Network
             # inceptionNet = InceptionV4()
             # model = inceptionNet.inceptionv4_custom(input_size=input_size, num_classes=num_classes)
 
             """
-            Residual Network
+            Residual Network (the stage list and filter list is only for ResNet. (Un)Comment whole block until 
+            optimization if using Inception or Sequential Networks.
             """
-            # stage_list = (3, 5, 6)
-            # filter_list = (64, 128, 256, 512)
-            # resnet = ResNet()
-            # model = resnet.resnet_build(input_shape=input_size, num_classes=num_classes, filter_list=filter_list,
-            #                             stage_list=stage_list)
+            stage_list = (4, 5, 6)
+            filter_list = (64, 128, 256, 512)
+            resnet = ResNet()
+            model = resnet.resnet_build(input_shape=input_size, num_classes=num_classes, filter_list=filter_list,
+                                        stage_list=stage_list)
 
-            myOpt = Adam(lr=0.001, amsgrad=True)
-            model.compile(loss='categorical_crossentropy', optimizer=myOpt, metrics=['accuracy'])
+            # common optimizer (we can also use Adam/Nadam or SGD but SGD with poly decay attains better accuracy)
+            sgd_opt = SGD(lr=self.init_lr, momentum=0.9, nesterov=True)
+            model.compile(loss='categorical_crossentropy', optimizer=sgd_opt, metrics=['accuracy'])
+
         else:
-            preTr_model_path = os.path.join(self.root_path, pretrained_model)
-            print('[INFO] Loading pretrained model: {0}'.format(preTr_model_path))
-            model = load_model(preTr_model_path)
+            pretr_model_path = os.path.join(self.root_path, pretrained_model)
+            print('[INFO] Loading pretrained model: {0}'.format(pretr_model_path))
+            model = load_model(pretr_model_path)
+
             if new_lr is None:
                 old_learning_rate = K.get_value(model.optimizer.lr)
-                new_lr = 1e-4
+                new_lr = old_learning_rate // 10
                 K.set_value(model.optimizer.lr, new_lr)
             else:
                 old_learning_rate = K.get_value(model.optimizer.lr)
@@ -167,8 +161,8 @@ class TrainTinyImageNet:
         tiny_imagenet_checkpoints = os.path.join(root_path, 'checkpoint_{epoch:02d}-{val_acc:.2f}.hdf5')
 
         tiny_imagenet_callbacks = [EarlyStopping(monitor='val_acc', patience=20, mode='auto'),
-                                   ModelCheckpoint(tiny_imagenet_checkpoints, monitor='val_acc', mode='auto', period=2),
-                                   LearningRateScheduler(lr_schedule)]
+                                   ModelCheckpoint(tiny_imagenet_checkpoints, monitor='val_acc', mode='auto', period=5),
+                                   LearningRateScheduler(self.poly_decay)]
 
         tiny_imagenet_train = model.fit_generator(trainGen.generator(), trainGen.numImages//64, epochs=num_epochs,
                                                   verbose=True, validation_data=valGen.generator(),
@@ -193,9 +187,9 @@ if __name__ == '__main__':
     trainTinyImageNet = TrainTinyImageNet(root_path=root_path)
     input_size = (64, 64, 3)
     num_classes = 200
-    num_epochs = 20
-    pretrained_model_name = None
-    new_model_name = 'TinyImageNet_Sequential_Baseline.hdf5'
+    num_epochs = 120
+    pretrained_model_name = 'TinyImageNet_ResNet_fn1.hdf5'
+    new_model_name = 'TinyImageNet_ResNet_fn2.hdf5'
     new_lr = None
     trainTinyImageNet.train_tinyimagenet(input_size=input_size, num_classes=num_classes,
                                          pretrained_model=pretrained_model_name,

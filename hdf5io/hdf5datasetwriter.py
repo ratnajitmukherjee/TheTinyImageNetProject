@@ -40,9 +40,10 @@
  " Author: Ratnajit Mukherjee, ratnajitmukherjee@gmail.com
  " Date: October 2018
 """
+import os
+
 # import the necessary packages
 import h5py
-import os
 
 
 class HDF5DatasetWriter:
